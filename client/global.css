@@ -99,11 +99,11 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: "Poppins", sans-serif;
+    font-family: "Inter", sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: "Outfit", sans-serif;
+    font-family: "Sora", sans-serif;
     font-weight: 700;
   }
 
