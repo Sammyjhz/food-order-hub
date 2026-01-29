@@ -68,11 +68,10 @@ export default function Cart() {
       <section className="border-b border-border">
         <div className="container mx-auto px-4 py-8">
           <h1 className="text-4xl font-heading font-bold text-foreground">
-            Shopping Cart
+            Order Details
           </h1>
           <p className="text-muted-foreground mt-2">
-            {cartItems.length} item{cartItems.length !== 1 ? "s" : ""} in your
-            cart
+            {cartItems.length} item{cartItems.length !== 1 ? "s" : ""} from Pizza Paradise
           </p>
         </div>
       </section>
@@ -89,16 +88,24 @@ export default function Cart() {
                     key={item.id}
                     className="bg-card rounded-lg border border-border p-6 flex gap-6"
                   >
-                    {/* Product Image */}
+                    {/* Food Image */}
                     <div className="flex-shrink-0 w-24 h-24 bg-muted rounded-lg flex items-center justify-center text-4xl">
                       {item.image}
                     </div>
 
-                    {/* Product Details */}
+                    {/* Item Details */}
                     <div className="flex-1">
-                      <h3 className="font-heading font-semibold text-foreground mb-2">
+                      <h3 className="font-heading font-semibold text-foreground mb-1">
                         {item.name}
                       </h3>
+                      <p className="text-sm text-muted-foreground mb-3">
+                        {item.restaurant}
+                      </p>
+                      {item.notes && (
+                        <p className="text-sm text-muted-foreground italic mb-2">
+                          Note: {item.notes}
+                        </p>
+                      )}
                       <p className="text-2xl font-bold text-primary mb-4">
                         ${item.price.toFixed(2)}
                       </p>
@@ -140,9 +147,20 @@ export default function Cart() {
                 ))}
               </div>
 
+              {/* Promo Code */}
+              <div className="mt-8 bg-card rounded-lg border border-border p-6">
+                <h3 className="font-heading font-semibold text-foreground mb-4">
+                  Have a Promo Code?
+                </h3>
+                <div className="flex gap-2">
+                  <Input placeholder="Enter promo code" />
+                  <Button variant="outline">Apply</Button>
+                </div>
+              </div>
+
               {/* Continue Shopping */}
-              <div className="mt-8">
-                <Link to="/shop">
+              <div className="mt-4">
+                <Link to="/restaurants">
                   <Button variant="outline" className="w-full">
                     Continue Shopping
                   </Button>
@@ -163,14 +181,8 @@ export default function Cart() {
                     <span>${subtotal.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-muted-foreground">
-                    <span>Shipping</span>
-                    <span>
-                      {shipping === 0 ? (
-                        <span className="text-accent font-semibold">Free</span>
-                      ) : (
-                        `$${shipping.toFixed(2)}`
-                      )}
-                    </span>
+                    <span>Delivery Fee</span>
+                    <span>${deliveryFee.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-muted-foreground">
                     <span>Tax</span>
@@ -192,9 +204,9 @@ export default function Cart() {
                 </Link>
 
                 <div className="space-y-2 text-sm text-muted-foreground">
-                  <p>✓ Free shipping on orders over $100</p>
-                  <p>✓ Secure checkout with multiple payment options</p>
-                  <p>✓ 30-day money-back guarantee</p>
+                  <p>✓ Average delivery: 20-30 min</p>
+                  <p>✓ Secure payment with multiple options</p>
+                  <p>✓ Real-time order tracking</p>
                 </div>
               </div>
             </div>
