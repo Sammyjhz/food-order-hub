@@ -27,7 +27,7 @@ export default function Checkout() {
     }, 2000);
   };
 
-  const cartTotal = 239.98 + 10 + 25 = 274.98; // Subtotal + shipping + tax
+  const cartTotal = 239.98 + 10 + 24.99; // Subtotal + shipping + tax
 
   return (
     <div className="bg-background">
