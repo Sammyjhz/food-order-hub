@@ -1,5 +1,5 @@
 /** @import must precede all other statements */
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -7,30 +7,30 @@
 
 @layer base {
   /**
-   * Tailwind CSS theme - Modern E-commerce
+   * Tailwind CSS theme - Food Delivery Platform
    * tailwind.config.ts expects the following color variables to be expressed as HSL values.
    * A different format will require also updating the theme in tailwind.config.ts.
   */
   :root {
     --background: 0 0% 99%;
-    --foreground: 224 71% 4%;
+    --foreground: 220 14% 8%;
 
     --card: 0 0% 100%;
-    --card-foreground: 224 71% 4%;
+    --card-foreground: 220 14% 8%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 224 71% 4%;
+    --popover-foreground: 220 14% 8%;
 
-    --primary: 280 85% 56%;
+    --primary: 10 86% 56%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 39 89% 57%;
-    --secondary-foreground: 224 71% 4%;
+    --secondary: 31 97% 60%;
+    --secondary-foreground: 220 14% 8%;
 
     --muted: 220 13% 91%;
-    --muted-foreground: 215 14% 34%;
+    --muted-foreground: 216 14% 34%;
 
-    --accent: 280 85% 56%;
+    --accent: 10 86% 56%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
@@ -38,57 +38,57 @@
 
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 280 85% 56%;
+    --ring: 10 86% 56%;
 
     --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 224 71% 4%;
-    --sidebar-primary: 280 85% 56%;
+    --sidebar-foreground: 220 14% 8%;
+    --sidebar-primary: 10 86% 56%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 39 89% 57%;
-    --sidebar-accent-foreground: 224 71% 4%;
+    --sidebar-accent: 31 97% 60%;
+    --sidebar-accent-foreground: 220 14% 8%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 280 85% 56%;
+    --sidebar-ring: 10 86% 56%;
   }
 
   .dark {
-    --background: 224 71% 4%;
+    --background: 220 14% 8%;
     --foreground: 0 0% 98%;
 
-    --card: 224 71% 8%;
+    --card: 220 14% 12%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 224 71% 8%;
+    --popover: 220 14% 12%;
     --popover-foreground: 0 0% 98%;
 
-    --primary: 280 85% 56%;
-    --primary-foreground: 224 71% 4%;
+    --primary: 10 86% 56%;
+    --primary-foreground: 220 14% 8%;
 
-    --secondary: 39 89% 57%;
-    --secondary-foreground: 224 71% 4%;
+    --secondary: 31 97% 60%;
+    --secondary-foreground: 220 14% 8%;
 
-    --muted: 224 71% 20%;
-    --muted-foreground: 215 14% 65%;
+    --muted: 220 14% 25%;
+    --muted-foreground: 216 14% 65%;
 
-    --accent: 280 85% 56%;
+    --accent: 10 86% 56%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 224 71% 20%;
-    --input: 224 71% 20%;
-    --ring: 280 85% 56%;
+    --border: 220 14% 25%;
+    --input: 220 14% 25%;
+    --ring: 10 86% 56%;
 
-    --sidebar-background: 224 71% 4%;
+    --sidebar-background: 220 14% 8%;
     --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 280 85% 56%;
-    --sidebar-primary-foreground: 224 71% 4%;
-    --sidebar-accent: 39 89% 57%;
-    --sidebar-accent-foreground: 224 71% 4%;
-    --sidebar-border: 224 71% 20%;
-    --sidebar-ring: 280 85% 56%;
+    --sidebar-primary: 10 86% 56%;
+    --sidebar-primary-foreground: 220 14% 8%;
+    --sidebar-accent: 31 97% 60%;
+    --sidebar-accent-foreground: 220 14% 8%;
+    --sidebar-border: 220 14% 25%;
+    --sidebar-ring: 10 86% 56%;
   }
 }
 
