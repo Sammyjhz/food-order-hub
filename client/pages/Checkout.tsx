@@ -271,27 +271,27 @@ export default function Checkout() {
 
                 <div className="space-y-3 mb-6">
                   <div className="text-sm">
-                    <p className="text-muted-foreground">Premium Wireless Headphones</p>
-                    <p className="text-foreground font-semibold">$149.99 x 1</p>
+                    <p className="text-muted-foreground">Margherita Pizza</p>
+                    <p className="text-foreground font-semibold">$12.99 x 1</p>
                   </div>
                   <div className="text-sm">
-                    <p className="text-muted-foreground">Leather Backpack</p>
-                    <p className="text-foreground font-semibold">$89.99 x 1</p>
+                    <p className="text-muted-foreground">Garlic Bread</p>
+                    <p className="text-foreground font-semibold">$4.99 x 2</p>
                   </div>
                 </div>
 
                 <div className="border-t border-border pt-6 space-y-3 mb-6">
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Subtotal</span>
-                    <span className="text-foreground">$239.98</span>
+                    <span className="text-foreground">$17.98</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Shipping</span>
-                    <span className="text-foreground">$10.00</span>
+                    <span className="text-muted-foreground">Delivery Fee</span>
+                    <span className="text-foreground">$1.99</span>
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">Tax</span>
-                    <span className="text-foreground">$24.99</span>
+                    <span className="text-foreground">$1.98</span>
                   </div>
                 </div>
 
