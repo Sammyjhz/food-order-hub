@@ -60,7 +60,13 @@ export interface Order {
   deliveryFee: number;
   tax: number;
   total: number;
-  status: "pending" | "confirmed" | "preparing" | "ready" | "delivering" | "delivered";
+  status:
+    | "pending"
+    | "confirmed"
+    | "preparing"
+    | "ready"
+    | "delivering"
+    | "delivered";
   deliveryAddress: string;
   driver?: Driver;
   createdAt: string;

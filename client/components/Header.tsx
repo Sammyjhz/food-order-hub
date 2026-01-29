@@ -12,7 +12,10 @@ export function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 font-heading text-2xl font-bold text-primary">
+          <Link
+            to="/"
+            className="flex items-center gap-2 font-heading text-2xl font-bold text-primary"
+          >
             <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center text-white font-heading text-lg">
               🍽️
             </div>
@@ -23,7 +26,9 @@ export function Header() {
           <div className="hidden md:flex items-center gap-2 text-sm px-4 py-2 bg-muted rounded-lg">
             <MapPin size={16} className="text-primary" />
             <span className="text-muted-foreground">Delivering to:</span>
-            <span className="font-semibold text-foreground">123 Main St...</span>
+            <span className="font-semibold text-foreground">
+              123 Main St...
+            </span>
           </div>
 
           {/* Right Side Actions */}
@@ -65,7 +70,9 @@ export function Header() {
           <nav className="md:hidden pb-4 space-y-3 border-t border-border pt-4">
             <div className="flex items-center gap-2 px-2 py-2 bg-muted rounded-lg">
               <MapPin size={16} className="text-primary" />
-              <span className="text-sm text-muted-foreground">Delivering to: 123 Main St...</span>
+              <span className="text-sm text-muted-foreground">
+                Delivering to: 123 Main St...
+              </span>
             </div>
             <Link
               to="/account"

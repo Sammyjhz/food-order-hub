@@ -27,7 +27,8 @@ export default function Index() {
                 </span>
               </h1>
               <p className="text-xl text-muted-foreground max-w-lg">
-                Order your favorite meals from nearby restaurants and get hot, delicious food delivered to your doorstep in 30 minutes or less.
+                Order your favorite meals from nearby restaurants and get hot,
+                delicious food delivered to your doorstep in 30 minutes or less.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/restaurants">
@@ -35,22 +36,32 @@ export default function Index() {
                     Order Now <ArrowRight className="ml-2" size={18} />
                   </Button>
                 </Link>
-                <Button size="lg" variant="outline" className="w-full sm:w-auto">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="w-full sm:w-auto"
+                >
                   See Restaurants
                 </Button>
               </div>
               <div className="flex items-center gap-6 pt-8">
                 <div>
                   <div className="text-3xl font-bold text-primary">100K+</div>
-                  <div className="text-sm text-muted-foreground">Orders Daily</div>
+                  <div className="text-sm text-muted-foreground">
+                    Orders Daily
+                  </div>
                 </div>
                 <div>
                   <div className="text-3xl font-bold text-primary">500+</div>
-                  <div className="text-sm text-muted-foreground">Restaurants</div>
+                  <div className="text-sm text-muted-foreground">
+                    Restaurants
+                  </div>
                 </div>
                 <div>
                   <div className="text-3xl font-bold text-primary">30min</div>
-                  <div className="text-sm text-muted-foreground">Avg Delivery</div>
+                  <div className="text-sm text-muted-foreground">
+                    Avg Delivery
+                  </div>
                 </div>
               </div>
             </div>
@@ -109,7 +120,8 @@ export default function Index() {
                   Add & Customize
                 </h3>
                 <p className="text-muted-foreground">
-                  Select items, customize toppings, and add special instructions.
+                  Select items, customize toppings, and add special
+                  instructions.
                 </p>
               </div>
               <div className="hidden md:block absolute -right-4 top-1/2 transform -translate-y-1/2">
@@ -157,7 +169,8 @@ export default function Index() {
                 Fast Delivery
               </h3>
               <p className="text-muted-foreground">
-                Average 30-minute delivery to your doorstep with real-time tracking.
+                Average 30-minute delivery to your doorstep with real-time
+                tracking.
               </p>
             </div>
 
@@ -170,7 +183,8 @@ export default function Index() {
                 Wide Selection
               </h3>
               <p className="text-muted-foreground">
-                Choose from 500+ restaurants with diverse cuisines and dietary options.
+                Choose from 500+ restaurants with diverse cuisines and dietary
+                options.
               </p>
             </div>
 
@@ -183,7 +197,8 @@ export default function Index() {
                 Secure Payments
               </h3>
               <p className="text-muted-foreground">
-                Multiple payment methods with bank-level security and encryption.
+                Multiple payment methods with bank-level security and
+                encryption.
               </p>
             </div>
 
@@ -196,7 +211,8 @@ export default function Index() {
                 AI Recommendations
               </h3>
               <p className="text-muted-foreground">
-                Personalized restaurant and menu suggestions based on your taste.
+                Personalized restaurant and menu suggestions based on your
+                taste.
               </p>
             </div>
 
@@ -209,7 +225,8 @@ export default function Index() {
                 Loyalty Rewards
               </h3>
               <p className="text-muted-foreground">
-                Earn points on every order and redeem for discounts and free meals.
+                Earn points on every order and redeem for discounts and free
+                meals.
               </p>
             </div>
 
@@ -222,7 +239,8 @@ export default function Index() {
                 Top-Rated Service
               </h3>
               <p className="text-muted-foreground">
-                Read reviews, ratings, and ratings from thousands of happy customers.
+                Read reviews, ratings, and ratings from thousands of happy
+                customers.
               </p>
             </div>
           </div>
@@ -259,7 +277,10 @@ export default function Index() {
                 rating: 5,
               },
             ].map((testimonial, idx) => (
-              <div key={idx} className="bg-background rounded-xl p-8 border border-border">
+              <div
+                key={idx}
+                className="bg-background rounded-xl p-8 border border-border"
+              >
                 <div className="flex gap-1 mb-4">
                   {Array.from({ length: testimonial.rating }).map((_, i) => (
                     <Star
@@ -294,7 +315,8 @@ export default function Index() {
               Hungry? Let's Order!
             </h2>
             <p className="text-xl text-muted-foreground mb-8">
-              Browse your favorite restaurants and get delicious food delivered in 30 minutes.
+              Browse your favorite restaurants and get delicious food delivered
+              in 30 minutes.
             </p>
             <Link to="/restaurants">
               <Button size="lg" className="px-8">

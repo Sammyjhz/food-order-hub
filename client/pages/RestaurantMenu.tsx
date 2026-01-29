@@ -98,14 +98,17 @@ export default function RestaurantMenu() {
   const [customization, setCustomization] = useState<Record<number, any>>({});
 
   const filteredItems = allMenuItems.filter(
-    (item) => item.category === selectedCategory
+    (item) => item.category === selectedCategory,
   );
 
   const handleAddItem = (item: any) => {
     const key = item.id;
     setCustomization({
       ...customization,
-      [key]: { ...customization[key], quantity: (customization[key]?.quantity || 0) + 1 },
+      [key]: {
+        ...customization[key],
+        quantity: (customization[key]?.quantity || 0) + 1,
+      },
     });
   };
 
@@ -240,10 +243,7 @@ export default function RestaurantMenu() {
                                       key={topping}
                                       className="flex items-center p-2 rounded-lg border border-border hover:bg-muted cursor-pointer"
                                     >
-                                      <input
-                                        type="checkbox"
-                                        className="mr-3"
-                                      />
+                                      <input type="checkbox" className="mr-3" />
                                       <span className="flex-1">{topping}</span>
                                       <span className="text-muted-foreground">
                                         +$0.99
@@ -262,17 +262,12 @@ export default function RestaurantMenu() {
                                   rows={3}
                                 />
                               </div>
-                              <Button className="w-full">
-                                Add to Cart
-                              </Button>
+                              <Button className="w-full">Add to Cart</Button>
                             </div>
                           </DialogContent>
                         </Dialog>
                       ) : (
-                        <Button
-                          size="sm"
-                          onClick={() => handleAddItem(item)}
-                        >
+                        <Button size="sm" onClick={() => handleAddItem(item)}>
                           <Plus size={16} />
                         </Button>
                       )}

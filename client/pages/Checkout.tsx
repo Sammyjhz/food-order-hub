@@ -34,7 +34,10 @@ export default function Checkout() {
       {/* Page Header */}
       <section className="border-b border-border">
         <div className="container mx-auto px-4 py-8">
-          <Link to="/cart" className="flex items-center gap-2 text-primary hover:text-primary/80 transition mb-4">
+          <Link
+            to="/cart"
+            className="flex items-center gap-2 text-primary hover:text-primary/80 transition mb-4"
+          >
             <ArrowLeft size={18} />
             Back to Cart
           </Link>
@@ -230,7 +233,11 @@ export default function Checkout() {
                         You will be redirected to PayPal to complete your
                         payment.
                       </p>
-                      <Button type="button" variant="outline" className="w-full">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="w-full"
+                      >
                         Pay with PayPal
                       </Button>
                     </TabsContent>
@@ -239,7 +246,11 @@ export default function Checkout() {
                       <p className="text-muted-foreground">
                         Click below to pay using your digital wallet.
                       </p>
-                      <Button type="button" variant="outline" className="w-full">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="w-full"
+                      >
                         Pay with Digital Wallet
                       </Button>
                     </TabsContent>
@@ -248,7 +259,10 @@ export default function Checkout() {
 
                 {/* Security Notice */}
                 <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 flex gap-3">
-                  <Lock size={20} className="text-primary flex-shrink-0 mt-0.5" />
+                  <Lock
+                    size={20}
+                    className="text-primary flex-shrink-0 mt-0.5"
+                  />
                   <div>
                     <p className="font-semibold text-foreground text-sm">
                       Your payment is secure

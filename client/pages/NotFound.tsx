@@ -25,7 +25,8 @@ const NotFound = ({ placeholder }: NotFoundProps) => {
             {placeholder} Coming Soon
           </h1>
           <p className="text-muted-foreground mb-6">
-            This page is being built. Feel free to explore other sections or ask us to prioritize this feature.
+            This page is being built. Feel free to explore other sections or ask
+            us to prioritize this feature.
           </p>
           <Link to="/">
             <Button className="w-full">Back to Home</Button>

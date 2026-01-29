@@ -91,7 +91,7 @@ export default function Shop() {
 
   const toggleFavorite = (id: number) => {
     setFavorites((prev) =>
-      prev.includes(id) ? prev.filter((fav) => fav !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((fav) => fav !== id) : [...prev, id],
     );
   };
 
@@ -199,7 +199,9 @@ export default function Shop() {
                       Add
                     </Button>
                     <Button
-                      variant={favorites.includes(product.id) ? "default" : "outline"}
+                      variant={
+                        favorites.includes(product.id) ? "default" : "outline"
+                      }
                       size="sm"
                       className="px-3"
                       onClick={() => toggleFavorite(product.id)}
@@ -207,9 +209,7 @@ export default function Shop() {
                       <Heart
                         size={16}
                         className={
-                          favorites.includes(product.id)
-                            ? "fill-current"
-                            : ""
+                          favorites.includes(product.id) ? "fill-current" : ""
                         }
                       />
                     </Button>

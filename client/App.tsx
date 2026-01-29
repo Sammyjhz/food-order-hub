@@ -38,7 +38,10 @@ const App = () => (
             <Route path="/account" element={<Account />} />
             <Route path="/admin" element={<AdminDashboard />} />
             {/* Placeholder routes */}
-            <Route path="/contact" element={<NotFound placeholder="Contact Us" />} />
+            <Route
+              path="/contact"
+              element={<NotFound placeholder="Contact Us" />}
+            />
             {/* Catch-all */}
             <Route path="*" element={<NotFound />} />
           </Routes>

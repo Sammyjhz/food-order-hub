@@ -99,7 +99,7 @@ export default function Restaurants() {
   let filtered = restaurants.filter(
     (r) =>
       r.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-      (selectedCuisine === "all" || r.cuisine === selectedCuisine)
+      (selectedCuisine === "all" || r.cuisine === selectedCuisine),
   );
 
   if (sortBy === "delivery-time") {
@@ -237,7 +237,9 @@ export default function Restaurants() {
                         </div>
                         <div className="flex items-center gap-2">
                           <MapPin size={14} />
-                          <span>Delivery ${restaurant.deliveryFee.toFixed(2)}</span>
+                          <span>
+                            Delivery ${restaurant.deliveryFee.toFixed(2)}
+                          </span>
                         </div>
                         <p className="text-xs">
                           Min. order: ${restaurant.minOrder}

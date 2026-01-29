@@ -37,7 +37,7 @@ export default function Cart() {
 
   const subtotal = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
-    0
+    0,
   );
   const deliveryFee = 1.99;
   const tax = (subtotal + deliveryFee) * 0.1;
@@ -71,7 +71,8 @@ export default function Cart() {
             Order Details
           </h1>
           <p className="text-muted-foreground mt-2">
-            {cartItems.length} item{cartItems.length !== 1 ? "s" : ""} from Pizza Paradise
+            {cartItems.length} item{cartItems.length !== 1 ? "s" : ""} from
+            Pizza Paradise
           </p>
         </div>
       </section>
@@ -112,11 +113,7 @@ export default function Cart() {
 
                       {/* Quantity Controls */}
                       <div className="flex items-center gap-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="px-2"
-                        >
+                        <Button variant="outline" size="sm" className="px-2">
                           <Minus size={16} />
                         </Button>
                         <Input
@@ -124,11 +121,7 @@ export default function Cart() {
                           className="w-12 text-center"
                           readOnly
                         />
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="px-2"
-                        >
+                        <Button variant="outline" size="sm" className="px-2">
                           <Plus size={16} />
                         </Button>
                       </div>
@@ -139,7 +132,11 @@ export default function Cart() {
                       <p className="text-lg font-bold text-foreground mb-4">
                         ${(item.price * item.quantity).toFixed(2)}
                       </p>
-                      <Button variant="ghost" size="sm" className="text-destructive">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-destructive"
+                      >
                         <Trash2 size={16} />
                       </Button>
                     </div>

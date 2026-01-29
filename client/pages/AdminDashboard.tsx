@@ -36,9 +36,7 @@ export default function AdminDashboard() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-muted-foreground text-sm">Today Sales</p>
-                  <p className="text-3xl font-bold text-primary mt-2">
-                    $2,450
-                  </p>
+                  <p className="text-3xl font-bold text-primary mt-2">$2,450</p>
                 </div>
                 <ShoppingBag className="text-primary/20" size={32} />
               </div>
@@ -156,8 +154,8 @@ export default function AdminDashboard() {
                               order.status === "delivered"
                                 ? "bg-green-100 text-green-800"
                                 : order.status === "ready"
-                                ? "bg-blue-100 text-blue-800"
-                                : "bg-yellow-100 text-yellow-800"
+                                  ? "bg-blue-100 text-blue-800"
+                                  : "bg-yellow-100 text-yellow-800"
                             }`}
                           >
                             {order.status.charAt(0).toUpperCase() +

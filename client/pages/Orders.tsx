@@ -45,14 +45,29 @@ export default function Orders() {
   ];
 
   const getStatusBadge = (status: string) => {
-    const badges: Record<string, { bg: string; text: string; label: string }> = {
-      delivered: { bg: "bg-green-100", text: "text-green-800", label: "Delivered" },
-      delivering: { bg: "bg-blue-100", text: "text-blue-800", label: "Delivering" },
-      pending: { bg: "bg-yellow-100", text: "text-yellow-800", label: "Pending" },
-    };
+    const badges: Record<string, { bg: string; text: string; label: string }> =
+      {
+        delivered: {
+          bg: "bg-green-100",
+          text: "text-green-800",
+          label: "Delivered",
+        },
+        delivering: {
+          bg: "bg-blue-100",
+          text: "text-blue-800",
+          label: "Delivering",
+        },
+        pending: {
+          bg: "bg-yellow-100",
+          text: "text-yellow-800",
+          label: "Pending",
+        },
+      };
     const badge = badges[status];
     return (
-      <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${badge.bg} ${badge.text}`}>
+      <span
+        className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${badge.bg} ${badge.text}`}
+      >
         {badge.label}
       </span>
     );

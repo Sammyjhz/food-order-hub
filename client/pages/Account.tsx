@@ -60,9 +60,7 @@ export default function Account() {
                   <p className="text-sm text-muted-foreground mb-2">
                     Loyalty Points
                   </p>
-                  <p className="text-2xl font-bold text-secondary">
-                    2,450 pts
-                  </p>
+                  <p className="text-2xl font-bold text-secondary">2,450 pts</p>
                 </div>
 
                 <Button
@@ -217,7 +215,9 @@ export default function Account() {
                       </thead>
                       <tbody>
                         <tr className="border-b border-border hover:bg-muted/50 transition">
-                          <td className="px-6 py-4 text-foreground">#ORD-001</td>
+                          <td className="px-6 py-4 text-foreground">
+                            #ORD-001
+                          </td>
                           <td className="px-6 py-4 text-muted-foreground">
                             Jan 15, 2024
                           </td>
@@ -231,7 +231,9 @@ export default function Account() {
                           </td>
                         </tr>
                         <tr className="border-b border-border hover:bg-muted/50 transition">
-                          <td className="px-6 py-4 text-foreground">#ORD-002</td>
+                          <td className="px-6 py-4 text-foreground">
+                            #ORD-002
+                          </td>
                           <td className="px-6 py-4 text-muted-foreground">
                             Jan 10, 2024
                           </td>
@@ -245,7 +247,9 @@ export default function Account() {
                           </td>
                         </tr>
                         <tr className="hover:bg-muted/50 transition">
-                          <td className="px-6 py-4 text-foreground">#ORD-003</td>
+                          <td className="px-6 py-4 text-foreground">
+                            #ORD-003
+                          </td>
                           <td className="px-6 py-4 text-muted-foreground">
                             Jan 5, 2024
                           </td>
@@ -330,10 +334,7 @@ export default function Account() {
                           </span>
                         </label>
                         <label className="flex items-center p-3 rounded-lg border border-border hover:bg-muted cursor-pointer transition">
-                          <input
-                            type="checkbox"
-                            className="w-4 h-4"
-                          />
+                          <input type="checkbox" className="w-4 h-4" />
                           <span className="ml-3 text-foreground font-medium">
                             Promotional offers
                           </span>
