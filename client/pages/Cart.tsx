@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Trash2, Plus, Minus } from "lucide-react";
+import { Trash2, Plus, Minus, Percent } from "lucide-react";
 
 interface CartItem {
   id: number;
@@ -9,6 +9,8 @@ interface CartItem {
   price: number;
   quantity: number;
   image: string;
+  restaurant: string;
+  notes?: string;
 }
 
 export default function Cart() {
@@ -16,17 +18,20 @@ export default function Cart() {
   const cartItems: CartItem[] = [
     {
       id: 1,
-      name: "Premium Wireless Headphones",
-      price: 149.99,
+      name: "Margherita Pizza",
+      price: 12.99,
       quantity: 1,
-      image: "🎧",
+      image: "🍕",
+      restaurant: "Pizza Paradise",
+      notes: "Extra basil",
     },
     {
-      id: 3,
-      name: "Leather Backpack",
-      price: 89.99,
-      quantity: 1,
-      image: "🎒",
+      id: 2,
+      name: "Garlic Bread",
+      price: 4.99,
+      quantity: 2,
+      image: "🥖",
+      restaurant: "Pizza Paradise",
     },
   ];
 
@@ -34,23 +39,23 @@ export default function Cart() {
     (sum, item) => sum + item.price * item.quantity,
     0
   );
-  const shipping = subtotal > 100 ? 0 : 10;
-  const tax = (subtotal + shipping) * 0.1;
-  const total = subtotal + shipping + tax;
+  const deliveryFee = 1.99;
+  const tax = (subtotal + deliveryFee) * 0.1;
+  const total = subtotal + deliveryFee + tax;
 
   if (cartItems.length === 0) {
     return (
       <div className="bg-background min-h-screen flex items-center">
         <div className="container mx-auto px-4 text-center py-20">
-          <div className="text-6xl mb-4">🛒</div>
+          <div className="text-6xl mb-4">🍽️</div>
           <h1 className="text-3xl font-heading font-bold text-foreground mb-4">
             Your Cart is Empty
           </h1>
           <p className="text-muted-foreground mb-8">
-            Add some amazing products to get started!
+            Order delicious food from your favorite restaurants!
           </p>
-          <Link to="/shop">
-            <Button size="lg">Continue Shopping</Button>
+          <Link to="/restaurants">
+            <Button size="lg">Browse Restaurants</Button>
           </Link>
         </div>
       </div>
