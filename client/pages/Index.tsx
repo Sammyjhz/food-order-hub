@@ -88,7 +88,9 @@ export default function Index() {
                 </span>
               </h1>
               <p className="text-xl text-muted-foreground max-w-lg">
-                Calculate your BMI and understand your health metrics. Track your progress and get personalized insights to achieve your health goals.
+                Calculate your BMI and understand your health metrics. Track
+                your progress and get personalized insights to achieve your
+                health goals.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to="/chart">
@@ -97,7 +99,11 @@ export default function Index() {
                   </Button>
                 </Link>
                 <Link to="/tips">
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto">
+                  <Button
+                    size="lg"
+                    variant="outline"
+                    className="w-full sm:w-auto"
+                  >
                     Health Tips
                   </Button>
                 </Link>
@@ -186,8 +192,12 @@ export default function Index() {
               {bmi && (
                 <div className="bg-muted/50 rounded-xl p-6 space-y-4">
                   <div className="text-center">
-                    <p className="text-muted-foreground text-sm mb-2">Your BMI</p>
-                    <p className={`text-5xl font-bold ${getBMIColor()}`}>{bmi}</p>
+                    <p className="text-muted-foreground text-sm mb-2">
+                      Your BMI
+                    </p>
+                    <p className={`text-5xl font-bold ${getBMIColor()}`}>
+                      {bmi}
+                    </p>
                   </div>
                   <div className="text-center">
                     <span
@@ -198,7 +208,9 @@ export default function Index() {
                   </div>
                   <div className="pt-4 border-t border-border">
                     <p className="text-xs text-muted-foreground text-center">
-                      BMI is a general indicator. For personalized health advice,<br />
+                      BMI is a general indicator. For personalized health
+                      advice,
+                      <br />
                       consult a healthcare professional.
                     </p>
                   </div>
@@ -344,7 +356,8 @@ export default function Index() {
               Start Your Health Journey Today
             </h2>
             <p className="text-xl text-muted-foreground mb-8">
-              Calculate your BMI now and take the first step towards better health.
+              Calculate your BMI now and take the first step towards better
+              health.
             </p>
             <Link to="/history">
               <Button size="lg" className="px-8">

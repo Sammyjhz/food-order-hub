@@ -1,4 +1,10 @@
-import { Info, TrendingDown, TrendingUp, AlertCircle, CheckCircle } from "lucide-react";
+import {
+  Info,
+  TrendingDown,
+  TrendingUp,
+  AlertCircle,
+  CheckCircle,
+} from "lucide-react";
 
 export default function BMIChart() {
   return (
@@ -62,10 +68,14 @@ export default function BMIChart() {
                   <div className="flex items-start gap-3 mb-3">
                     <Icon className={item.textColor} size={24} />
                     <div>
-                      <p className={`font-heading text-2xl font-bold ${item.textColor}`}>
+                      <p
+                        className={`font-heading text-2xl font-bold ${item.textColor}`}
+                      >
                         {item.range}
                       </p>
-                      <p className={`font-heading font-semibold ${item.textColor}`}>
+                      <p
+                        className={`font-heading font-semibold ${item.textColor}`}
+                      >
                         {item.category}
                       </p>
                     </div>
@@ -90,10 +100,14 @@ export default function BMIChart() {
                 Underweight (BMI &lt; 18.5)
               </h2>
               <p className="text-muted-foreground mb-4">
-                A BMI below 18.5 is considered underweight. This may indicate that you're not getting enough nutrients or have certain health conditions.
+                A BMI below 18.5 is considered underweight. This may indicate
+                that you're not getting enough nutrients or have certain health
+                conditions.
               </p>
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-2 text-sm">
-                <p className="font-semibold text-blue-900">Health Considerations:</p>
+                <p className="font-semibold text-blue-900">
+                  Health Considerations:
+                </p>
                 <ul className="list-disc list-inside text-blue-800 space-y-1">
                   <li>May increase risk of nutritional deficiencies</li>
                   <li>Could be associated with certain health conditions</li>
@@ -109,7 +123,8 @@ export default function BMIChart() {
                 Normal Weight (BMI 18.5 - 24.9)
               </h2>
               <p className="text-muted-foreground mb-4">
-                A BMI in this range is generally considered healthy and associated with lower health risks for most adults.
+                A BMI in this range is generally considered healthy and
+                associated with lower health risks for most adults.
               </p>
               <div className="bg-green-50 border border-green-200 rounded-lg p-4 space-y-2 text-sm">
                 <p className="font-semibold text-green-900">Health Benefits:</p>
@@ -128,15 +143,23 @@ export default function BMIChart() {
                 Overweight (BMI 25 - 29.9)
               </h2>
               <p className="text-muted-foreground mb-4">
-                A BMI in this range suggests you may be carrying excess weight relative to your height, which can increase certain health risks.
+                A BMI in this range suggests you may be carrying excess weight
+                relative to your height, which can increase certain health
+                risks.
               </p>
               <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 space-y-2 text-sm">
-                <p className="font-semibold text-yellow-900">Health Considerations:</p>
+                <p className="font-semibold text-yellow-900">
+                  Health Considerations:
+                </p>
                 <ul className="list-disc list-inside text-yellow-800 space-y-1">
-                  <li>Increased risk of heart disease and high blood pressure</li>
+                  <li>
+                    Increased risk of heart disease and high blood pressure
+                  </li>
                   <li>Higher likelihood of type 2 diabetes</li>
                   <li>May affect joint and back health</li>
-                  <li>Consider lifestyle changes and consult a healthcare provider</li>
+                  <li>
+                    Consider lifestyle changes and consult a healthcare provider
+                  </li>
                 </ul>
               </div>
             </div>
@@ -147,7 +170,8 @@ export default function BMIChart() {
                 Obese (BMI ≥ 30)
               </h2>
               <p className="text-muted-foreground mb-4">
-                A BMI of 30 or higher is classified as obese and is associated with increased health risks and potential chronic conditions.
+                A BMI of 30 or higher is classified as obese and is associated
+                with increased health risks and potential chronic conditions.
               </p>
               <div className="bg-red-50 border border-red-200 rounded-lg p-4 space-y-2 text-sm">
                 <p className="font-semibold text-red-900">Health Risks:</p>
@@ -176,19 +200,29 @@ export default function BMIChart() {
                 </h3>
                 <ul className="space-y-2 text-sm text-blue-800">
                   <li>
-                    <span className="font-semibold">General Tool:</span> BMI is a general screening tool and doesn't diagnose health conditions.
+                    <span className="font-semibold">General Tool:</span> BMI is
+                    a general screening tool and doesn't diagnose health
+                    conditions.
                   </li>
                   <li>
-                    <span className="font-semibold">Not for Everyone:</span> BMI may not be accurate for athletes, elderly, or children. Muscle weighs more than fat.
+                    <span className="font-semibold">Not for Everyone:</span> BMI
+                    may not be accurate for athletes, elderly, or children.
+                    Muscle weighs more than fat.
                   </li>
                   <li>
-                    <span className="font-semibold">Medical Advice:</span> This calculator is not a substitute for professional medical advice. Always consult healthcare professionals.
+                    <span className="font-semibold">Medical Advice:</span> This
+                    calculator is not a substitute for professional medical
+                    advice. Always consult healthcare professionals.
                   </li>
                   <li>
-                    <span className="font-semibold">Other Factors:</span> Waist circumference, fitness level, and family history also affect health risks.
+                    <span className="font-semibold">Other Factors:</span> Waist
+                    circumference, fitness level, and family history also affect
+                    health risks.
                   </li>
                   <li>
-                    <span className="font-semibold">Individual Variation:</span> BMI categories are general guidelines. Individual health depends on many factors.
+                    <span className="font-semibold">Individual Variation:</span>{" "}
+                    BMI categories are general guidelines. Individual health
+                    depends on many factors.
                   </li>
                 </ul>
               </div>
@@ -216,7 +250,8 @@ export default function BMIChart() {
                 </p>
               </div>
               <p className="text-sm text-muted-foreground">
-                Divide your weight in kilograms by your height in meters, squared.
+                Divide your weight in kilograms by your height in meters,
+                squared.
               </p>
             </div>
 
@@ -231,7 +266,8 @@ export default function BMIChart() {
                 </p>
               </div>
               <p className="text-sm text-muted-foreground">
-                Divide weight in pounds by height in inches squared, then multiply by 703.
+                Divide weight in pounds by height in inches squared, then
+                multiply by 703.
               </p>
             </div>
           </div>
