@@ -10,10 +10,13 @@ import { Layout } from "./components/Layout";
 
 // Pages
 import Index from "./pages/Index";
-import Shop from "./pages/Shop";
+import Restaurants from "./pages/Restaurants";
+import RestaurantMenu from "./pages/RestaurantMenu";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import Orders from "./pages/Orders";
 import Account from "./pages/Account";
+import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,13 +30,14 @@ const App = () => (
         <Layout>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/shop" element={<Shop />} />
+            <Route path="/restaurants" element={<Restaurants />} />
+            <Route path="/restaurant/:id" element={<RestaurantMenu />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/orders" element={<Orders />} />
             <Route path="/account" element={<Account />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             {/* Placeholder routes */}
-            <Route path="/deals" element={<NotFound placeholder="Deals" />} />
-            <Route path="/about" element={<NotFound placeholder="About Us" />} />
             <Route path="/contact" element={<NotFound placeholder="Contact Us" />} />
             {/* Catch-all */}
             <Route path="*" element={<NotFound />} />
