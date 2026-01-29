@@ -5,23 +5,47 @@
  */
 
 /**
- * Product interface
+ * Restaurant interface
  */
-export interface Product {
+export interface Restaurant {
   id: number;
   name: string;
-  price: number;
-  image: string;
+  cuisine: string;
   rating: number;
   reviews: number;
-  category: string;
+  deliveryTime: string;
+  deliveryFee: number;
+  minOrder: number;
+  image: string;
+  open: boolean;
 }
 
 /**
- * Cart item interface
+ * Menu item interface
  */
-export interface CartItem extends Product {
+export interface MenuItem {
+  id: number;
+  name: string;
+  price: number;
+  description: string;
+  image: string;
+  category: string;
+  customizable: boolean;
+  available: boolean;
+}
+
+/**
+ * Cart item interface (food order)
+ */
+export interface CartItem {
+  id: number;
+  name: string;
+  price: number;
   quantity: number;
+  image: string;
+  restaurant: string;
+  notes?: string;
+  customizations?: Record<string, any>;
 }
 
 /**
@@ -29,13 +53,29 @@ export interface CartItem extends Product {
  */
 export interface Order {
   id: string;
+  restaurantId: number;
+  restaurantName: string;
   items: CartItem[];
   subtotal: number;
-  shipping: number;
+  deliveryFee: number;
   tax: number;
   total: number;
-  status: "pending" | "processing" | "shipped" | "delivered";
+  status: "pending" | "confirmed" | "preparing" | "ready" | "delivering" | "delivered";
+  deliveryAddress: string;
+  driver?: Driver;
   createdAt: string;
+  estimatedDeliveryTime: string;
+}
+
+/**
+ * Driver interface
+ */
+export interface Driver {
+  id: string;
+  name: string;
+  rating: number;
+  phone: string;
+  vehicle: string;
 }
 
 /**
@@ -52,6 +92,7 @@ export interface User {
   state?: string;
   zip?: string;
   country?: string;
+  loyaltyPoints: number;
 }
 
 /**
