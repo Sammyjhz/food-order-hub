@@ -10,13 +10,10 @@ import { Layout } from "./components/Layout";
 
 // Pages
 import Index from "./pages/Index";
-import Restaurants from "./pages/Restaurants";
-import RestaurantMenu from "./pages/RestaurantMenu";
-import Cart from "./pages/Cart";
-import Checkout from "./pages/Checkout";
-import Orders from "./pages/Orders";
+import BMIChart from "./pages/BMIChart";
+import History from "./pages/History";
+import Tips from "./pages/Tips";
 import Account from "./pages/Account";
-import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,18 +27,10 @@ const App = () => (
         <Layout>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/restaurants" element={<Restaurants />} />
-            <Route path="/restaurant/:id" element={<RestaurantMenu />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/orders" element={<Orders />} />
+            <Route path="/chart" element={<BMIChart />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/tips" element={<Tips />} />
             <Route path="/account" element={<Account />} />
-            <Route path="/admin" element={<AdminDashboard />} />
-            {/* Placeholder routes */}
-            <Route
-              path="/contact"
-              element={<NotFound placeholder="Contact Us" />}
-            />
             {/* Catch-all */}
             <Route path="*" element={<NotFound />} />
           </Routes>
