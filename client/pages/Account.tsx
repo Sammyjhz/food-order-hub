@@ -56,6 +56,15 @@ export default function Account() {
                   </button>
                 </nav>
 
+                <div className="mt-6 p-4 bg-secondary/10 rounded-lg">
+                  <p className="text-sm text-muted-foreground mb-2">
+                    Loyalty Points
+                  </p>
+                  <p className="text-2xl font-bold text-secondary">
+                    2,450 pts
+                  </p>
+                </div>
+
                 <Button
                   variant="outline"
                   className="w-full mt-6 text-destructive"
