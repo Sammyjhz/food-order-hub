@@ -70,6 +70,32 @@ export default function Index() {
     return "bg-red-100 text-red-800";
   };
 
+  const saveToHistory = () => {
+    const h = parseFloat(height);
+    const w = parseFloat(weight);
+
+    if (!bmi || !h || !w) {
+      alert("Please calculate BMI first");
+      return;
+    }
+
+    const record = {
+      id: Date.now().toString(),
+      date: new Date().toISOString(),
+      height: h,
+      weight: w,
+      bmi: bmi,
+      category: category,
+      unit: unit,
+    };
+
+    const stored = localStorage.getItem("bmiHistory");
+    const history = stored ? JSON.parse(stored) : [];
+    history.unshift(record);
+    localStorage.setItem("bmiHistory", JSON.stringify(history));
+    alert("BMI saved to history!");
+  };
+
   return (
     <div className="bg-background">
       {/* Hero Section */}
