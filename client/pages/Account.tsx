@@ -194,11 +194,7 @@ export default function Account() {
                       </div>
                       <div>
                         <Label htmlFor="weight">Weight (kg)</Label>
-                        <Input
-                          id="weight"
-                          defaultValue="75"
-                          className="mt-2"
-                        />
+                        <Input id="weight" defaultValue="75" className="mt-2" />
                       </div>
                     </div>
                   </div>
@@ -325,9 +321,7 @@ export default function Account() {
                       <p className="text-3xl font-bold text-foreground">
                         175 cm
                       </p>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        5'9"
-                      </p>
+                      <p className="text-xs text-muted-foreground mt-1">5'9"</p>
                     </div>
 
                     <div className="p-4 bg-muted rounded-lg">
@@ -416,9 +410,9 @@ export default function Account() {
                         parties without your consent.
                       </p>
                       <p>
-                        All calculations are performed on your device. We do
-                        not collect or store personal health information unless
-                        you choose to save it.
+                        All calculations are performed on your device. We do not
+                        collect or store personal health information unless you
+                        choose to save it.
                       </p>
                     </div>
                   </div>

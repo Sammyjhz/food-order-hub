@@ -76,8 +76,7 @@ export default function Tips() {
     {
       icon: Utensils,
       title: "Control Portions",
-      description:
-        "Be mindful of portion sizes to maintain a healthy weight.",
+      description: "Be mindful of portion sizes to maintain a healthy weight.",
       details: [
         "Use smaller plates and bowls",
         "Eat slowly and chew thoroughly",
@@ -145,13 +144,17 @@ export default function Tips() {
                     </h3>
                   </div>
 
-                  <p className="text-muted-foreground mb-4">{tip.description}</p>
+                  <p className="text-muted-foreground mb-4">
+                    {tip.description}
+                  </p>
 
                   <ul className="space-y-2">
                     {tip.details.map((detail, idx) => (
                       <li key={idx} className="flex items-start gap-3">
                         <span className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0 mt-2"></span>
-                        <span className="text-sm text-foreground">{detail}</span>
+                        <span className="text-sm text-foreground">
+                          {detail}
+                        </span>
                       </li>
                     ))}
                   </ul>
@@ -191,7 +194,8 @@ export default function Tips() {
                 Calculate BMI
               </h3>
               <p className="text-sm text-muted-foreground mb-4">
-                Get your current BMI and understand what it means for your health
+                Get your current BMI and understand what it means for your
+                health
               </p>
               <Link to="/">
                 <Button className="w-full">Calculate Now</Button>
@@ -225,10 +229,10 @@ export default function Tips() {
             </h3>
             <p className="text-sm text-blue-800 mb-3">
               These tips are for general informational purposes only and should
-              not be considered medical advice. Before making significant changes
-              to your diet or exercise routine, consult with a healthcare
-              professional, especially if you have any existing health
-              conditions.
+              not be considered medical advice. Before making significant
+              changes to your diet or exercise routine, consult with a
+              healthcare professional, especially if you have any existing
+              health conditions.
             </p>
             <p className="text-sm text-blue-800">
               Everyone's health needs are different, and what works for one

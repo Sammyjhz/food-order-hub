@@ -112,7 +112,8 @@ export default function History() {
                     Your Calculations
                   </h2>
                   <p className="text-muted-foreground">
-                    {records.length} calculation{records.length !== 1 ? "s" : ""}
+                    {records.length} calculation
+                    {records.length !== 1 ? "s" : ""}
                   </p>
                 </div>
                 <Button
