@@ -240,6 +240,12 @@ export default function Index() {
                       consult a healthcare professional.
                     </p>
                   </div>
+                  <button
+                    onClick={saveToHistory}
+                    className="w-full mt-4 py-2 px-4 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition"
+                  >
+                    Save to History
+                  </button>
                 </div>
               )}
             </div>
