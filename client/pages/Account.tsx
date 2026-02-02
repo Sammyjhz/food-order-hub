@@ -2,7 +2,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { User, Package, Heart, LogOut, Bell, Lock } from "lucide-react";
+import { User, Target, Heart, LogOut, Bell, Lock } from "lucide-react";
 
 export default function Account() {
   return (
@@ -23,8 +23,8 @@ export default function Account() {
             {/* Sidebar */}
             <div className="lg:col-span-1">
               <div className="bg-card rounded-lg border border-border p-6">
-                <div className="w-20 h-20 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center text-4xl mx-auto mb-4">
-                  👤
+                <div className="w-20 h-20 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-4xl mx-auto mb-4">
+                  💪
                 </div>
                 <h2 className="font-heading font-bold text-foreground text-center mb-1">
                   John Doe
@@ -39,12 +39,12 @@ export default function Account() {
                     <span>Profile</span>
                   </button>
                   <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-foreground hover:bg-muted transition">
-                    <Package size={18} />
-                    <span>Orders</span>
+                    <Target size={18} />
+                    <span>Goals</span>
                   </button>
                   <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-foreground hover:bg-muted transition">
                     <Heart size={18} />
-                    <span>Wishlist</span>
+                    <span>Health Metrics</span>
                   </button>
                   <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-foreground hover:bg-muted transition">
                     <Bell size={18} />
@@ -52,15 +52,18 @@ export default function Account() {
                   </button>
                   <button className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-foreground hover:bg-muted transition">
                     <Lock size={18} />
-                    <span>Security</span>
+                    <span>Privacy</span>
                   </button>
                 </nav>
 
-                <div className="mt-6 p-4 bg-secondary/10 rounded-lg">
+                <div className="mt-6 p-4 bg-primary/10 rounded-lg border border-primary/20">
                   <p className="text-sm text-muted-foreground mb-2">
-                    Loyalty Points
+                    Current BMI
                   </p>
-                  <p className="text-2xl font-bold text-secondary">2,450 pts</p>
+                  <p className="text-2xl font-bold text-primary">24.5</p>
+                  <p className="text-xs text-muted-foreground mt-1">
+                    Normal Weight
+                  </p>
                 </div>
 
                 <Button
@@ -78,10 +81,10 @@ export default function Account() {
               <Tabs defaultValue="profile" className="space-y-6">
                 <TabsList className="grid w-full grid-cols-2 sm:grid-cols-5 bg-card border border-border">
                   <TabsTrigger value="profile">Profile</TabsTrigger>
-                  <TabsTrigger value="orders">Orders</TabsTrigger>
-                  <TabsTrigger value="wishlist">Wishlist</TabsTrigger>
+                  <TabsTrigger value="goals">Goals</TabsTrigger>
+                  <TabsTrigger value="metrics">Metrics</TabsTrigger>
                   <TabsTrigger value="settings">Settings</TabsTrigger>
-                  <TabsTrigger value="security">Security</TabsTrigger>
+                  <TabsTrigger value="privacy">Privacy</TabsTrigger>
                 </TabsList>
 
                 {/* Profile Tab */}
@@ -125,61 +128,47 @@ export default function Account() {
                           className="mt-2"
                         />
                       </div>
+                      <div>
+                        <Label htmlFor="dob">Date of Birth</Label>
+                        <Input
+                          id="dob"
+                          type="date"
+                          defaultValue="1990-01-15"
+                          className="mt-2"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="gender">Gender</Label>
+                        <select
+                          id="gender"
+                          className="w-full mt-2 px-3 py-2 border border-border rounded-lg bg-background"
+                        >
+                          <option>Male</option>
+                          <option>Female</option>
+                          <option>Other</option>
+                        </select>
+                      </div>
                     </div>
 
                     <div className="border-t border-border pt-6">
                       <h3 className="font-heading font-bold text-lg text-foreground mb-4">
-                        Shipping Address
+                        Current Health Info
                       </h3>
 
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <div>
-                          <Label htmlFor="address">Street Address</Label>
+                          <Label htmlFor="height">Height (cm)</Label>
                           <Input
-                            id="address"
-                            defaultValue="123 Main Street"
+                            id="height"
+                            defaultValue="175"
                             className="mt-2"
                           />
                         </div>
                         <div>
-                          <Label htmlFor="apartment">
-                            Apartment, Suite, etc
-                          </Label>
+                          <Label htmlFor="weight">Weight (kg)</Label>
                           <Input
-                            id="apartment"
-                            defaultValue="Apt 4B"
-                            className="mt-2"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="city">City</Label>
-                          <Input
-                            id="city"
-                            defaultValue="New York"
-                            className="mt-2"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="state">State</Label>
-                          <Input
-                            id="state"
-                            defaultValue="NY"
-                            className="mt-2"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="zip">ZIP Code</Label>
-                          <Input
-                            id="zip"
-                            defaultValue="10001"
-                            className="mt-2"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="country">Country</Label>
-                          <Input
-                            id="country"
-                            defaultValue="United States"
+                            id="weight"
+                            defaultValue="75"
                             className="mt-2"
                           />
                         </div>
@@ -193,113 +182,147 @@ export default function Account() {
                   </div>
                 </TabsContent>
 
-                {/* Orders Tab */}
-                <TabsContent value="orders">
-                  <div className="bg-card rounded-lg border border-border overflow-hidden">
-                    <table className="w-full">
-                      <thead className="bg-muted border-b border-border">
-                        <tr>
-                          <th className="px-6 py-4 text-left font-heading font-semibold text-foreground">
-                            Order
-                          </th>
-                          <th className="px-6 py-4 text-left font-heading font-semibold text-foreground">
-                            Date
-                          </th>
-                          <th className="px-6 py-4 text-left font-heading font-semibold text-foreground">
-                            Status
-                          </th>
-                          <th className="px-6 py-4 text-left font-heading font-semibold text-foreground">
-                            Total
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr className="border-b border-border hover:bg-muted/50 transition">
-                          <td className="px-6 py-4 text-foreground">
-                            #ORD-001
-                          </td>
-                          <td className="px-6 py-4 text-muted-foreground">
-                            Jan 15, 2024
-                          </td>
-                          <td className="px-6 py-4">
-                            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">
-                              Delivered
-                            </span>
-                          </td>
-                          <td className="px-6 py-4 text-foreground font-semibold">
-                            $274.98
-                          </td>
-                        </tr>
-                        <tr className="border-b border-border hover:bg-muted/50 transition">
-                          <td className="px-6 py-4 text-foreground">
-                            #ORD-002
-                          </td>
-                          <td className="px-6 py-4 text-muted-foreground">
-                            Jan 10, 2024
-                          </td>
-                          <td className="px-6 py-4">
-                            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
-                              Shipped
-                            </span>
-                          </td>
-                          <td className="px-6 py-4 text-foreground font-semibold">
-                            $159.99
-                          </td>
-                        </tr>
-                        <tr className="hover:bg-muted/50 transition">
-                          <td className="px-6 py-4 text-foreground">
-                            #ORD-003
-                          </td>
-                          <td className="px-6 py-4 text-muted-foreground">
-                            Jan 5, 2024
-                          </td>
-                          <td className="px-6 py-4">
-                            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800">
-                              Delivered
-                            </span>
-                          </td>
-                          <td className="px-6 py-4 text-foreground font-semibold">
-                            $89.99
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </TabsContent>
-
-                {/* Wishlist Tab */}
-                <TabsContent value="wishlist">
-                  <div className="bg-card rounded-lg border border-border p-6">
-                    <h3 className="font-heading font-bold text-lg text-foreground mb-4">
-                      Saved Items
+                {/* Goals Tab */}
+                <TabsContent value="goals">
+                  <div className="bg-card rounded-lg border border-border p-6 space-y-6">
+                    <h3 className="font-heading font-bold text-lg text-foreground">
+                      Health Goals
                     </h3>
 
                     <div className="space-y-4">
-                      {[
-                        {
-                          name: "4K Ultra HD Monitor",
-                          price: "$399.99",
-                        },
-                        {
-                          name: "Wireless Charging Stand",
-                          price: "$49.99",
-                        },
-                      ].map((item, idx) => (
-                        <div
-                          key={idx}
-                          className="flex items-center justify-between p-4 rounded-lg border border-border hover:bg-muted transition"
-                        >
+                      <div className="p-4 border border-border rounded-lg">
+                        <div className="flex items-start justify-between mb-3">
                           <div>
-                            <p className="font-heading font-semibold text-foreground">
-                              {item.name}
+                            <p className="font-heading font-bold text-foreground">
+                              Target BMI
                             </p>
-                            <p className="text-primary font-bold">
-                              {item.price}
+                            <p className="text-sm text-muted-foreground">
+                              Reach and maintain a healthy BMI
                             </p>
                           </div>
-                          <Button size="sm">Add to Cart</Button>
+                          <span className="px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">
+                            Active
+                          </span>
                         </div>
-                      ))}
+                        <div className="bg-muted rounded p-3 mb-3">
+                          <p className="text-sm text-muted-foreground">
+                            Target: 18.5 - 24.9
+                          </p>
+                          <p className="text-lg font-bold text-foreground">
+                            Current: 24.5 ✓
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="p-4 border border-border rounded-lg">
+                        <div className="flex items-start justify-between mb-3">
+                          <div>
+                            <p className="font-heading font-bold text-foreground">
+                              Exercise Target
+                            </p>
+                            <p className="text-sm text-muted-foreground">
+                              150 minutes of moderate activity per week
+                            </p>
+                          </div>
+                          <span className="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">
+                            In Progress
+                          </span>
+                        </div>
+                        <div className="bg-muted rounded p-3 mb-3">
+                          <p className="text-sm text-muted-foreground">
+                            This week: 120 minutes
+                          </p>
+                          <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                            <div
+                              className="bg-primary h-2 rounded-full"
+                              style={{ width: "80%" }}
+                            ></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="p-4 border border-border rounded-lg">
+                        <div className="flex items-start justify-between mb-3">
+                          <div>
+                            <p className="font-heading font-bold text-foreground">
+                              Nutrition Goal
+                            </p>
+                            <p className="text-sm text-muted-foreground">
+                              Maintain balanced diet with proper nutrients
+                            </p>
+                          </div>
+                          <span className="px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-semibold rounded-full">
+                            Track More
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <Button>Add New Goal</Button>
+                  </div>
+                </TabsContent>
+
+                {/* Metrics Tab */}
+                <TabsContent value="metrics">
+                  <div className="bg-card rounded-lg border border-border p-6 space-y-6">
+                    <h3 className="font-heading font-bold text-lg text-foreground">
+                      Health Metrics
+                    </h3>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="p-4 bg-muted rounded-lg">
+                        <p className="text-sm text-muted-foreground mb-2">
+                          Current BMI
+                        </p>
+                        <p className="text-3xl font-bold text-primary">24.5</p>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          Last updated: Today
+                        </p>
+                      </div>
+
+                      <div className="p-4 bg-muted rounded-lg">
+                        <p className="text-sm text-muted-foreground mb-2">
+                          Target Weight
+                        </p>
+                        <p className="text-3xl font-bold text-secondary">70 kg</p>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          5 kg to goal
+                        </p>
+                      </div>
+
+                      <div className="p-4 bg-muted rounded-lg">
+                        <p className="text-sm text-muted-foreground mb-2">
+                          Height
+                        </p>
+                        <p className="text-3xl font-bold text-foreground">
+                          175 cm
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          5'9"
+                        </p>
+                      </div>
+
+                      <div className="p-4 bg-muted rounded-lg">
+                        <p className="text-sm text-muted-foreground mb-2">
+                          Activity Level
+                        </p>
+                        <p className="text-3xl font-bold text-foreground">
+                          Moderate
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          120 min/week
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="border-t border-border pt-6">
+                      <p className="text-sm text-muted-foreground mb-4">
+                        Want to track more? Visit your{" "}
+                        <a href="/history" className="text-primary font-semibold">
+                          history
+                        </a>{" "}
+                        to see detailed metrics and progress.
+                      </p>
                     </div>
                   </div>
                 </TabsContent>
@@ -320,7 +343,7 @@ export default function Account() {
                             className="w-4 h-4"
                           />
                           <span className="ml-3 text-foreground font-medium">
-                            Email notifications for orders
+                            Daily health reminders
                           </span>
                         </label>
                         <label className="flex items-center p-3 rounded-lg border border-border hover:bg-muted cursor-pointer transition">
@@ -330,13 +353,19 @@ export default function Account() {
                             className="w-4 h-4"
                           />
                           <span className="ml-3 text-foreground font-medium">
-                            Price drop alerts
+                            Weekly progress reports
                           </span>
                         </label>
                         <label className="flex items-center p-3 rounded-lg border border-border hover:bg-muted cursor-pointer transition">
                           <input type="checkbox" className="w-4 h-4" />
                           <span className="ml-3 text-foreground font-medium">
-                            Promotional offers
+                            Goal achievement alerts
+                          </span>
+                        </label>
+                        <label className="flex items-center p-3 rounded-lg border border-border hover:bg-muted cursor-pointer transition">
+                          <input type="checkbox" className="w-4 h-4" />
+                          <span className="ml-3 text-foreground font-medium">
+                            Health tips and recommendations
                           </span>
                         </label>
                       </div>
@@ -344,20 +373,18 @@ export default function Account() {
 
                     <div className="border-t border-border pt-6">
                       <h3 className="font-heading font-bold text-lg text-foreground mb-4">
-                        Language & Region
+                        Units Preference
                       </h3>
 
-                      <div className="space-y-4">
+                      <div className="space-y-3">
                         <div>
-                          <Label htmlFor="language">Language</Label>
+                          <Label htmlFor="units">Measurement Units</Label>
                           <select
-                            id="language"
-                            className="w-full mt-2 px-3 py-2 border border-border rounded-lg"
+                            id="units"
+                            className="w-full mt-2 px-3 py-2 border border-border rounded-lg bg-background"
                           >
-                            <option>English</option>
-                            <option>Spanish</option>
-                            <option>French</option>
-                            <option>German</option>
+                            <option>Metric (cm, kg)</option>
+                            <option>Imperial (inches, lbs)</option>
                           </select>
                         </div>
                       </div>
@@ -365,45 +392,48 @@ export default function Account() {
                   </div>
                 </TabsContent>
 
-                {/* Security Tab */}
-                <TabsContent value="security">
+                {/* Privacy Tab */}
+                <TabsContent value="privacy">
                   <div className="bg-card rounded-lg border border-border p-6 space-y-6">
                     <div>
                       <h3 className="font-heading font-bold text-lg text-foreground mb-4">
-                        Password
+                        Data Privacy
                       </h3>
-                      <Button variant="outline">Change Password</Button>
+                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm text-blue-800 space-y-2">
+                        <p>
+                          <strong>Your Privacy Matters:</strong> All your health
+                          data is stored securely and never shared with third
+                          parties without your consent.
+                        </p>
+                        <p>
+                          All calculations are performed on your device. We do
+                          not collect or store personal health information
+                          unless you choose to save it.
+                        </p>
+                      </div>
                     </div>
 
                     <div className="border-t border-border pt-6">
                       <h3 className="font-heading font-bold text-lg text-foreground mb-4">
-                        Two-Factor Authentication
-                      </h3>
-                      <p className="text-muted-foreground mb-4">
-                        Add an extra layer of security to your account.
-                      </p>
-                      <Button>Enable 2FA</Button>
-                    </div>
-
-                    <div className="border-t border-border pt-6">
-                      <h3 className="font-heading font-bold text-lg text-foreground mb-4">
-                        Active Sessions
+                        Data Management
                       </h3>
                       <div className="space-y-3">
-                        <div className="flex items-center justify-between p-4 rounded-lg border border-border">
-                          <div>
-                            <p className="font-semibold text-foreground">
-                              Current Device
-                            </p>
-                            <p className="text-sm text-muted-foreground">
-                              Chrome on macOS
-                            </p>
-                          </div>
-                          <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">
-                            Active
-                          </span>
-                        </div>
+                        <Button variant="outline">Download My Data</Button>
+                        <Button variant="outline">Clear All History</Button>
+                        <Button
+                          variant="outline"
+                          className="text-destructive"
+                        >
+                          Delete Account
+                        </Button>
                       </div>
+                    </div>
+
+                    <div className="border-t border-border pt-6">
+                      <h3 className="font-heading font-bold text-lg text-foreground mb-4">
+                        Account Security
+                      </h3>
+                      <Button>Change Password</Button>
                     </div>
                   </div>
                 </TabsContent>
