@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { User, Target, Heart, LogOut, Bell, Lock } from "lucide-react";
+import { User, Target, Heart, LogOut, Bell, Lock, Shield, ArrowLeft } from "lucide-react";
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function Account() {
   const [activeTab, setActiveTab] = useState("profile");
@@ -20,446 +22,290 @@ export default function Account() {
     }
   }, []);
 
+  const menuItems = [
+    { id: "profile", label: "Profile", icon: User },
+    { id: "goals", label: "Health Goals", icon: Target },
+    { id: "metrics", label: "Bio Metrics", icon: Heart },
+    { id: "settings", label: "Preferences", icon: Bell },
+    { id: "privacy", label: "Data & Privacy", icon: Lock },
+  ];
+
   return (
-    <div className="bg-background">
+    <div className="bg-background min-h-screen">
       {/* Page Header */}
-      <section className="border-b border-border">
-        <div className="container mx-auto px-4 py-8">
-          <h1 className="text-4xl font-heading font-bold text-foreground">
-            My Account
+      <section className="bg-card border-b border-border py-12 md:py-16">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <Link to="/" className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:opacity-80 transition mb-4">
+            <ArrowLeft size={16} />
+            BACK TO CALCULATOR
+          </Link>
+          <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tight uppercase flex items-center gap-4">
+            User Control Center
           </h1>
         </div>
       </section>
 
       {/* Account Content */}
-      <section className="py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      <section className="py-12 lg:py-20">
+        <div className="container mx-auto px-4 max-w-6xl">
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-12">
             {/* Sidebar */}
-            <div className="lg:col-span-1">
-              <div className="bg-card rounded-lg border border-border p-6">
-                <div className="w-20 h-20 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center text-4xl mx-auto mb-4">
-                  💪
+            <div className="lg:col-span-1 space-y-8">
+              <div className="bg-card rounded-3xl border border-border p-8 shadow-sm">
+                <div className="relative w-24 h-24 mx-auto mb-6">
+                   <div className="w-full h-full bg-gradient-to-br from-primary to-secondary rounded-3xl flex items-center justify-center text-4xl shadow-lg animate-float">
+                    💪
+                  </div>
+                  <div className="absolute -bottom-2 -right-2 bg-background border-2 border-primary w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-black">
+                    PRO
+                  </div>
                 </div>
-                <h2 className="font-heading font-bold text-foreground text-center mb-1">
+                
+                <h2 className="font-black text-xl text-foreground text-center mb-1 tracking-tight uppercase">
                   John Doe
                 </h2>
-                <p className="text-muted-foreground text-center text-sm mb-6">
-                  john@example.com
+                <p className="text-muted-foreground text-center text-xs font-bold mb-8 italic">
+                  Member since Jan 2024
                 </p>
 
                 <nav className="space-y-2">
-                  <button
-                    onClick={() => setActiveTab("profile")}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition ${
-                      activeTab === "profile"
-                        ? "bg-primary text-white"
-                        : "text-foreground hover:bg-muted"
-                    }`}
-                  >
-                    <User size={18} />
-                    <span>Profile</span>
-                  </button>
-                  <button
-                    onClick={() => setActiveTab("goals")}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition ${
-                      activeTab === "goals"
-                        ? "bg-primary text-white"
-                        : "text-foreground hover:bg-muted"
-                    }`}
-                  >
-                    <Target size={18} />
-                    <span>Goals</span>
-                  </button>
-                  <button
-                    onClick={() => setActiveTab("metrics")}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition ${
-                      activeTab === "metrics"
-                        ? "bg-primary text-white"
-                        : "text-foreground hover:bg-muted"
-                    }`}
-                  >
-                    <Heart size={18} />
-                    <span>Health Metrics</span>
-                  </button>
-                  <button
-                    onClick={() => setActiveTab("settings")}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition ${
-                      activeTab === "settings"
-                        ? "bg-primary text-white"
-                        : "text-foreground hover:bg-muted"
-                    }`}
-                  >
-                    <Bell size={18} />
-                    <span>Notifications</span>
-                  </button>
-                  <button
-                    onClick={() => setActiveTab("privacy")}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition ${
-                      activeTab === "privacy"
-                        ? "bg-primary text-white"
-                        : "text-foreground hover:bg-muted"
-                    }`}
-                  >
-                    <Lock size={18} />
-                    <span>Privacy</span>
-                  </button>
+                  {menuItems.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() => setActiveTab(item.id)}
+                        className={`w-full flex items-center gap-4 px-5 py-3.5 rounded-2xl font-bold text-sm transition-all duration-300 ${
+                          activeTab === item.id
+                            ? "bg-primary text-white shadow-lg shadow-primary/20 scale-[1.02]"
+                            : "text-foreground hover:bg-muted"
+                        }`}
+                      >
+                        <Icon size={18} />
+                        <span>{item.label}</span>
+                      </button>
+                    );
+                  })}
                 </nav>
 
-                <div className="mt-6 p-4 bg-primary/10 rounded-lg border border-primary/20">
-                  <p className="text-sm text-muted-foreground mb-2">
-                    Latest BMI
+                <div className="mt-10 p-6 bg-primary/5 rounded-2xl border border-primary/10">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-3">
+                    Latest Assessment
                   </p>
-                  <p className="text-2xl font-bold text-primary">
-                    {lastBmi ? lastBmi : "--"}
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    {lastCategory ? lastCategory : "No data yet"}
-                  </p>
+                  <div className="flex items-baseline gap-2">
+                    <p className="text-3xl font-black text-primary">{lastBmi ? lastBmi : "--"}</p>
+                    <p className="text-[10px] font-bold text-muted-foreground uppercase">{lastCategory || "NO DATA"}</p>
+                  </div>
+                  <div className="mt-4 h-1.5 w-full bg-muted rounded-full overflow-hidden">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      animate={{ width: lastBmi ? "65%" : "0%" }}
+                      className="h-full bg-primary"
+                    />
+                  </div>
                 </div>
 
                 <Button
                   variant="outline"
-                  className="w-full mt-6 text-destructive"
+                  className="w-full mt-8 h-12 rounded-2xl text-destructive border-destructive/20 hover:bg-destructive hover:text-white transition-all font-bold"
                 >
                   <LogOut size={18} className="mr-2" />
-                  Sign Out
+                  SIGN OUT
                 </Button>
               </div>
             </div>
 
             {/* Main Content */}
             <div className="lg:col-span-3">
-              {/* Profile Tab */}
-              {activeTab === "profile" && (
-                <div className="bg-card rounded-lg border border-border p-6 space-y-6">
-                  <h3 className="font-heading font-bold text-lg text-foreground">
-                    Personal Information
-                  </h3>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div>
-                      <Label htmlFor="firstName">First Name</Label>
-                      <Input
-                        id="firstName"
-                        defaultValue="John"
-                        className="mt-2"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="lastName">Last Name</Label>
-                      <Input
-                        id="lastName"
-                        defaultValue="Doe"
-                        className="mt-2"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="email">Email</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        defaultValue="john@example.com"
-                        className="mt-2"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="phone">Phone</Label>
-                      <Input
-                        id="phone"
-                        defaultValue="+1 (555) 123-4567"
-                        className="mt-2"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="dob">Date of Birth</Label>
-                      <Input
-                        id="dob"
-                        type="date"
-                        defaultValue="1990-01-15"
-                        className="mt-2"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="gender">Gender</Label>
-                      <select
-                        id="gender"
-                        className="w-full mt-2 px-3 py-2 border border-border rounded-lg bg-background"
-                      >
-                        <option>Male</option>
-                        <option>Female</option>
-                        <option>Other</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="border-t border-border pt-6">
-                    <h3 className="font-heading font-bold text-lg text-foreground mb-4">
-                      Current Health Info
-                    </h3>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeTab}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {activeTab === "profile" && (
+                    <div className="bg-card rounded-[2rem] border border-border p-8 md:p-12 shadow-sm space-y-8">
                       <div>
-                        <Label htmlFor="height">Height (cm)</Label>
-                        <Input
-                          id="height"
-                          defaultValue="175"
-                          className="mt-2"
-                        />
+                        <h3 className="text-2xl font-black text-foreground tracking-tight uppercase mb-2">
+                          Core Profile
+                        </h3>
+                        <p className="text-sm text-muted-foreground italic">Update your personal and physiological metadata.</p>
                       </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <div className="space-y-2">
+                          <Label className="text-[10px] font-black uppercase tracking-widest opacity-60">First Name</Label>
+                          <Input defaultValue="John" className="h-12 rounded-xl bg-muted/30 border-none font-bold" />
+                        </div>
+                        <div className="space-y-2">
+                          <Label className="text-[10px] font-black uppercase tracking-widest opacity-60">Last Name</Label>
+                          <Input defaultValue="Doe" className="h-12 rounded-xl bg-muted/30 border-none font-bold" />
+                        </div>
+                        <div className="space-y-2 lg:col-span-2">
+                          <Label className="text-[10px] font-black uppercase tracking-widest opacity-60">Email Protocol</Label>
+                          <Input type="email" defaultValue="john@wellness.io" className="h-12 rounded-xl bg-muted/30 border-none font-bold" />
+                        </div>
+                        <div className="space-y-2">
+                          <Label className="text-[10px] font-black uppercase tracking-widest opacity-60">DOB</Label>
+                          <Input type="date" defaultValue="1990-01-15" className="h-12 rounded-xl bg-muted/30 border-none font-bold" />
+                        </div>
+                        <div className="space-y-2">
+                          <Label className="text-[10px] font-black uppercase tracking-widest opacity-60">Gender Identification</Label>
+                          <select className="w-full h-12 rounded-xl bg-muted/30 border-none px-4 font-bold text-sm appearance-none outline-none focus:ring-2 focus:ring-primary">
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Non-Binary</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div className="border-t border-border pt-10">
+                         <Button className="h-14 px-10 rounded-2xl font-black shadow-lg shadow-primary/20">
+                            SAVE CHANGES
+                         </Button>
+                      </div>
+                    </div>
+                  )}
+
+                  {activeTab === "goals" && (
+                    <div className="bg-card rounded-[2rem] border border-border p-8 md:p-12 shadow-sm space-y-8">
                       <div>
-                        <Label htmlFor="weight">Weight (kg)</Label>
-                        <Input id="weight" defaultValue="75" className="mt-2" />
+                        <h3 className="text-2xl font-black text-foreground tracking-tight uppercase mb-2">
+                          Strategic Targets
+                        </h3>
+                        <p className="text-sm text-muted-foreground italic">Manage your physiological objectives and timelines.</p>
                       </div>
-                    </div>
-                  </div>
 
-                  <div className="border-t border-border pt-6 flex gap-4">
-                    <Button>Save Changes</Button>
-                    <Button variant="outline">Cancel</Button>
-                  </div>
-                </div>
-              )}
-
-              {/* Goals Tab */}
-              {activeTab === "goals" && (
-                <div className="bg-card rounded-lg border border-border p-6 space-y-6">
-                  <h3 className="font-heading font-bold text-lg text-foreground">
-                    Health Goals
-                  </h3>
-
-                  <div className="space-y-4">
-                    <div className="p-4 border border-border rounded-lg">
-                      <div className="flex items-start justify-between mb-3">
-                        <div>
-                          <p className="font-heading font-bold text-foreground">
-                            Target BMI
-                          </p>
-                          <p className="text-sm text-muted-foreground">
-                            Reach and maintain a healthy BMI
-                          </p>
-                        </div>
-                        <span className="px-3 py-1 bg-green-100 text-green-800 text-xs font-semibold rounded-full">
-                          Active
-                        </span>
+                      <div className="space-y-6">
+                        {[
+                          { title: "Target BMI Range", val: "18.5 - 24.9", current: "24.5", status: "Active", color: "bg-green-500" },
+                          { title: "Weekly Metabolism", val: "1050 min/wk", current: "820 min", status: "In Progress", color: "bg-blue-500" },
+                        ].map((goal, idx) => (
+                          <div key={idx} className="p-8 border border-border rounded-3xl bg-muted/10 relative overflow-hidden group">
+                            <div className="absolute top-0 right-0 w-1 h-full bg-primary/20"></div>
+                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                              <div className="space-y-2">
+                                <p className="font-black text-lg tracking-tight uppercase">{goal.title}</p>
+                                <p className="text-xs font-bold text-muted-foreground italic">Current Benchmark: {goal.current}</p>
+                              </div>
+                              <div className="text-right">
+                                <p className="text-2xl font-black text-primary">{goal.val}</p>
+                                <span className={`text-[10px] font-black uppercase tracking-widest ${goal.color.replace('bg-', 'text-')} px-3 py-1 bg-white border border-border rounded-full`}>
+                                  {goal.status}
+                                </span>
+                              </div>
+                            </div>
+                            <div className="mt-8 h-2 w-full bg-muted rounded-full overflow-hidden">
+                               <motion.div 
+                                initial={{ width: 0 }}
+                                whileInView={{ width: idx === 0 ? "90%" : "70%" }}
+                                className={`h-full ${goal.color}`}
+                               />
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                      <div className="bg-muted rounded p-3 mb-3">
-                        <p className="text-sm text-muted-foreground">
-                          Target: 18.5 - 24.9
-                        </p>
-                        <p className="text-lg font-bold text-foreground">
-                          Current: 24.5 ✓
-                        </p>
-                      </div>
-                    </div>
 
-                    <div className="p-4 border border-border rounded-lg">
-                      <div className="flex items-start justify-between mb-3">
-                        <div>
-                          <p className="font-heading font-bold text-foreground">
-                            Exercise Target
-                          </p>
-                          <p className="text-sm text-muted-foreground">
-                            150 minutes of moderate activity per week
-                          </p>
-                        </div>
-                        <span className="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-semibold rounded-full">
-                          In Progress
-                        </span>
-                      </div>
-                      <div className="bg-muted rounded p-3 mb-3">
-                        <p className="text-sm text-muted-foreground">
-                          This week: 120 minutes
-                        </p>
-                        <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
-                          <div
-                            className="bg-primary h-2 rounded-full"
-                            style={{ width: "80%" }}
-                          ></div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="p-4 border border-border rounded-lg">
-                      <div className="flex items-start justify-between mb-3">
-                        <div>
-                          <p className="font-heading font-bold text-foreground">
-                            Nutrition Goal
-                          </p>
-                          <p className="text-sm text-muted-foreground">
-                            Maintain balanced diet with proper nutrients
-                          </p>
-                        </div>
-                        <span className="px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-semibold rounded-full">
-                          Track More
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <Button>Add New Goal</Button>
-                </div>
-              )}
-
-              {/* Metrics Tab */}
-              {activeTab === "metrics" && (
-                <div className="bg-card rounded-lg border border-border p-6 space-y-6">
-                  <h3 className="font-heading font-bold text-lg text-foreground">
-                    Health Metrics
-                  </h3>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="p-4 bg-muted rounded-lg">
-                      <p className="text-sm text-muted-foreground mb-2">
-                        Current BMI
-                      </p>
-                      <p className="text-3xl font-bold text-primary">24.5</p>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        Last updated: Today
-                      </p>
-                    </div>
-
-                    <div className="p-4 bg-muted rounded-lg">
-                      <p className="text-sm text-muted-foreground mb-2">
-                        Target Weight
-                      </p>
-                      <p className="text-3xl font-bold text-secondary">70 kg</p>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        5 kg to goal
-                      </p>
-                    </div>
-
-                    <div className="p-4 bg-muted rounded-lg">
-                      <p className="text-sm text-muted-foreground mb-2">
-                        Height
-                      </p>
-                      <p className="text-3xl font-bold text-foreground">
-                        175 cm
-                      </p>
-                      <p className="text-xs text-muted-foreground mt-1">5'9"</p>
-                    </div>
-
-                    <div className="p-4 bg-muted rounded-lg">
-                      <p className="text-sm text-muted-foreground mb-2">
-                        Activity Level
-                      </p>
-                      <p className="text-3xl font-bold text-foreground">
-                        Moderate
-                      </p>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        120 min/week
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Settings Tab */}
-              {activeTab === "settings" && (
-                <div className="bg-card rounded-lg border border-border p-6 space-y-6">
-                  <div>
-                    <h3 className="font-heading font-bold text-lg text-foreground mb-4">
-                      Notification Preferences
-                    </h3>
-
-                    <div className="space-y-3">
-                      <label className="flex items-center p-3 rounded-lg border border-border hover:bg-muted cursor-pointer transition">
-                        <input
-                          type="checkbox"
-                          defaultChecked
-                          className="w-4 h-4"
-                        />
-                        <span className="ml-3 text-foreground font-medium">
-                          Daily health reminders
-                        </span>
-                      </label>
-                      <label className="flex items-center p-3 rounded-lg border border-border hover:bg-muted cursor-pointer transition">
-                        <input
-                          type="checkbox"
-                          defaultChecked
-                          className="w-4 h-4"
-                        />
-                        <span className="ml-3 text-foreground font-medium">
-                          Weekly progress reports
-                        </span>
-                      </label>
-                      <label className="flex items-center p-3 rounded-lg border border-border hover:bg-muted cursor-pointer transition">
-                        <input type="checkbox" className="w-4 h-4" />
-                        <span className="ml-3 text-foreground font-medium">
-                          Goal achievement alerts
-                        </span>
-                      </label>
-                    </div>
-                  </div>
-
-                  <div className="border-t border-border pt-6">
-                    <h3 className="font-heading font-bold text-lg text-foreground mb-4">
-                      Units Preference
-                    </h3>
-
-                    <div>
-                      <Label htmlFor="units">Measurement Units</Label>
-                      <select
-                        id="units"
-                        className="w-full mt-2 px-3 py-2 border border-border rounded-lg bg-background"
-                      >
-                        <option>Metric (cm, kg)</option>
-                        <option>Imperial (inches, lbs)</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Privacy Tab */}
-              {activeTab === "privacy" && (
-                <div className="bg-card rounded-lg border border-border p-6 space-y-6">
-                  <div>
-                    <h3 className="font-heading font-bold text-lg text-foreground mb-4">
-                      Data Privacy
-                    </h3>
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-sm text-blue-800 space-y-2">
-                      <p>
-                        <strong>Your Privacy Matters:</strong> All your health
-                        data is stored securely and never shared with third
-                        parties without your consent.
-                      </p>
-                      <p>
-                        All calculations are performed on your device. We do not
-                        collect or store personal health information unless you
-                        choose to save it.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="border-t border-border pt-6">
-                    <h3 className="font-heading font-bold text-lg text-foreground mb-4">
-                      Data Management
-                    </h3>
-                    <div className="space-y-3">
-                      <Button variant="outline" className="w-full">
-                        Download My Data
-                      </Button>
-                      <Button variant="outline" className="w-full">
-                        Clear All History
-                      </Button>
-                      <Button
-                        variant="outline"
-                        className="w-full text-destructive"
-                      >
-                        Delete Account
+                      <Button variant="outline" className="h-14 w-full rounded-2xl font-black border-dashed border-2 hover:bg-muted transition-all">
+                        INITIALIZE NEW TARGET
                       </Button>
                     </div>
-                  </div>
+                  )}
 
-                  <div className="border-t border-border pt-6">
-                    <h3 className="font-heading font-bold text-lg text-foreground mb-4">
-                      Account Security
-                    </h3>
-                    <Button>Change Password</Button>
-                  </div>
-                </div>
-              )}
+                  {activeTab === "metrics" && (
+                    <div className="bg-card rounded-[2rem] border border-border p-8 md:p-12 shadow-sm space-y-8">
+                       <div>
+                        <h3 className="text-2xl font-black text-foreground tracking-tight uppercase mb-2">
+                          Bio-Metric Stream
+                        </h3>
+                        <p className="text-sm text-muted-foreground italic">Real-time data from your latest health assessments.</p>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {[
+                          { label: "Precision BMI", val: lastBmi || "N/A", sub: "Calculated from height/weight", icon: "📊" },
+                          { label: "Target Weight", val: "70.0 kg", sub: "Based on 21.0 BMI target", icon: "🎯" },
+                          { label: "Height Log", val: "175.0 cm", sub: "Last verified Jan 15", icon: "📏" },
+                          { label: "BMR Est.", val: "1,780 kcal", sub: "Resting metabolic rate", icon: "🔥" },
+                        ].map((metric, idx) => (
+                          <div key={idx} className="p-8 bg-muted/30 border border-border rounded-[2rem] flex items-center gap-6 group hover:bg-white transition-all duration-500">
+                            <div className="text-4xl group-hover:scale-125 transition-transform duration-500">{metric.icon}</div>
+                            <div className="space-y-1">
+                              <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{metric.label}</p>
+                              <p className="text-2xl font-black text-foreground">{metric.val}</p>
+                              <p className="text-[10px] font-bold italic opacity-60">{metric.sub}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {activeTab === "settings" && (
+                    <div className="bg-card rounded-[2rem] border border-border p-8 md:p-12 shadow-sm space-y-8">
+                       <div>
+                        <h3 className="text-2xl font-black text-foreground tracking-tight uppercase mb-2">
+                          System Prefs
+                        </h3>
+                        <p className="text-sm text-muted-foreground italic">Configure your calculation protocol and alerts.</p>
+                      </div>
+
+                      <div className="space-y-4">
+                        {[
+                          "Enable daily health snapshots",
+                          "Sync with system calendars",
+                          "Send weekly progress reports",
+                          "High priority goal alerts"
+                        ].map((pref, idx) => (
+                           <label key={idx} className="flex items-center justify-between p-6 rounded-2xl border border-border hover:bg-muted/30 cursor-pointer transition group">
+                            <span className="font-bold text-foreground group-hover:text-primary transition">{pref}</span>
+                            <div className="w-12 h-6 bg-muted rounded-full relative p-1 group-hover:bg-primary/20 transition">
+                               <div className="w-4 h-4 bg-white rounded-full shadow-sm"></div>
+                            </div>
+                          </label>
+                        ))}
+                      </div>
+
+                      <div className="pt-8 border-t border-border">
+                         <Label className="text-[10px] font-black uppercase tracking-widest opacity-60 mb-4 block">Default Measurement Protocol</Label>
+                         <select className="w-full h-14 rounded-xl bg-muted/30 border-none px-6 font-bold text-sm">
+                            <option>Metric (cm, kg)</option>
+                            <option>Imperial (in, lbs)</option>
+                         </select>
+                      </div>
+                    </div>
+                  )}
+
+                  {activeTab === "privacy" && (
+                    <div className="bg-card rounded-[2rem] border border-border p-8 md:p-12 shadow-sm space-y-8">
+                      <div className="flex items-center gap-4 p-6 bg-emerald-50 rounded-2xl border border-emerald-100">
+                        <Shield className="text-emerald-600 shrink-0" size={32} />
+                        <div>
+                          <p className="font-black text-emerald-900 uppercase text-xs tracking-widest">End-to-End Privacy</p>
+                          <p className="text-xs text-emerald-800 italic">Your physiological data is stored using browser-level encryption. We never see your metrics.</p>
+                        </div>
+                      </div>
+
+                      <div className="space-y-4">
+                        <h4 className="text-[10px] font-black uppercase tracking-widest opacity-60">Data Governance</h4>
+                        <div className="grid grid-cols-1 gap-4">
+                          <Button variant="outline" className="h-14 justify-start px-8 rounded-2xl font-bold border-border bg-background">
+                            DOWNLOAD COMPLETE HEALTH EXPORT (.JSON)
+                          </Button>
+                          <Button variant="outline" className="h-14 justify-start px-8 rounded-2xl font-bold border-border bg-background">
+                            REQUEST DATA PURGE
+                          </Button>
+                          <Button variant="outline" className="h-14 justify-start px-8 rounded-2xl font-bold border-destructive/20 text-destructive bg-background hover:bg-destructive hover:text-white transition-all">
+                            TERMINATE ACCOUNT PROTOCOL
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
             </div>
           </div>
         </div>

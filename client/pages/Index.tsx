@@ -1,19 +1,19 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Activity,
-  TrendingUp,
-  Heart,
-  Zap,
-  ArrowRight,
-  Info,
-  BarChart3,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { useToast } from "@/hooks/use-toast";
+
+// Components
+import { Hero } from "@/components/Home/Hero";
+import { BMIInfoCards } from "@/components/Home/BMIInfoCards";
+import { Features } from "@/components/Home/Features";
+import { CalculatorForm } from "@/components/Calculator/CalculatorForm";
+import { ResultDisplay } from "@/components/Calculator/ResultDisplay";
 
 export default function Index() {
+  const { toast } = useToast();
   const [height, setHeight] = useState<string>("");
   const [weight, setWeight] = useState<string>("");
   const [age, setAge] = useState<string>("");
@@ -33,7 +33,11 @@ export default function Index() {
     const a = parseFloat(age);
 
     if (!h || !w || h <= 0 || w <= 0) {
-      alert("Please enter valid height and weight values");
+      toast({
+        title: "Missing Information",
+        description: "Please enter valid height and weight values.",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -79,8 +83,7 @@ export default function Index() {
       setCalories(Math.round(finalBmr * parseFloat(activityLevel)));
     }
 
-    // Calculate Ideal Weight Range (Hamwi Method approx for range)
-    // Healthy BMI range is 18.5 to 24.9
+    // Calculate Ideal Weight Range (Healthy BMI range is 18.5 to 24.9)
     let minW: number, maxW: number;
     if (unit === "metric") {
       const hM = h / 100;
@@ -91,12 +94,19 @@ export default function Index() {
       maxW = (24.9 * (h * h)) / 703;
     }
     setIdealWeight({ min: Math.round(minW * 10) / 10, max: Math.round(maxW * 10) / 10 });
+    
+    toast({
+      title: "Calculation Complete",
+      description: `Your BMI is ${finalBMI}. Scroll down for detailed analysis.`,
+    });
   };
+
+  const resetBmi = () => setBmi(null);
 
   const getBMIColor = () => {
     if (!bmi) return "";
     if (bmi < 18.5) return "text-blue-500";
-    if (bmi < 25) return "text-green-500";
+    if (bmi < 25) return "text-primary";
     if (bmi < 30) return "text-yellow-500";
     return "text-red-500";
   };
@@ -104,7 +114,7 @@ export default function Index() {
   const getCategoryColor = () => {
     if (!bmi) return "";
     if (bmi < 18.5) return "bg-blue-100 text-blue-800";
-    if (bmi < 25) return "bg-green-100 text-green-800";
+    if (bmi < 25) return "bg-primary/10 text-primary border border-primary/20";
     if (bmi < 30) return "bg-yellow-100 text-yellow-800";
     return "bg-red-100 text-red-800";
   };
@@ -114,7 +124,11 @@ export default function Index() {
     const w = parseFloat(weight);
 
     if (!bmi || !h || !w) {
-      alert("Please calculate BMI first");
+      toast({
+        title: "Error",
+        description: "Please calculate BMI first.",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -138,420 +152,104 @@ export default function Index() {
     const history = stored ? JSON.parse(stored) : [];
     history.unshift(record);
     localStorage.setItem("bmiHistory", JSON.stringify(history));
-    alert("BMI saved to history!");
+    
+    toast({
+      title: "Record Saved",
+      description: "Your BMI data has been added to history.",
+    });
   };
 
   return (
     <div className="bg-background">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden pt-20 pb-32 bg-gradient-to-br from-primary/10 via-background to-secondary/5">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-full blur-3xl -z-10"></div>
+      <Hero />
 
+      <section id="calculator" className="relative -mt-16 pb-24 z-20">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            {/* Left Side - Info */}
-            <div className="space-y-8 pt-8">
-              <h1 className="text-5xl lg:text-6xl font-heading font-bold text-foreground leading-tight">
-                Know Your
-                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-                  {" "}
-                  Health Status
-                </span>
-              </h1>
-              <p className="text-xl text-muted-foreground max-w-lg">
-                Calculate your BMI and understand your health metrics. Track
-                your progress and get personalized insights to achieve your
-                health goals.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/chart">
-                  <Button size="lg" className="w-full sm:w-auto">
-                    View BMI Chart <ArrowRight className="ml-2" size={18} />
-                  </Button>
-                </Link>
-                <Link to="/tips">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="w-full sm:w-auto"
+          <div className="max-w-5xl mx-auto">
+            <div className="bg-card rounded-3xl border border-border p-6 md:p-12 shadow-2xl shadow-primary/5 grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
+              {/* Left Side - Form */}
+              <div className="lg:col-span-3 space-y-8">
+                <div>
+                  <h2 className="text-3xl font-black text-foreground mb-2 tracking-tight">
+                    CALCULATOR
+                  </h2>
+                  <p className="text-muted-foreground font-medium italic">
+                    Enter your details for a precision health analysis.
+                  </p>
+                </div>
+
+                <CalculatorForm 
+                  unit={unit}
+                  setUnit={setUnit}
+                  height={height}
+                  setHeight={setHeight}
+                  weight={weight}
+                  setWeight={setWeight}
+                  age={age}
+                  setAge={setAge}
+                  gender={gender}
+                  setGender={setGender}
+                  activityLevel={activityLevel}
+                  setActivityLevel={setActivityLevel}
+                  calculateBMI={calculateBMI}
+                  resetBmi={resetBmi}
+                />
+              </div>
+
+              {/* Right Side - Results / Illustration */}
+              <div className="lg:col-span-2 sticky top-24">
+                {bmi ? (
+                  <ResultDisplay 
+                    bmi={bmi}
+                    category={category}
+                    getBMIColor={getBMIColor}
+                    getCategoryColor={getCategoryColor}
+                    showDetailed={showDetailed}
+                    setShowDetailed={setShowDetailed}
+                    bmr={bmr}
+                    calories={calories}
+                    idealWeight={idealWeight}
+                    unit={unit}
+                    saveToHistory={saveToHistory}
+                  />
+                ) : (
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="h-full min-h-[400px] flex flex-col items-center justify-center text-center p-8 bg-muted/30 rounded-3xl border-2 border-dashed border-border"
                   >
-                    Health Tips
-                  </Button>
-                </Link>
-              </div>
-            </div>
-
-            {/* Right Side - Calculator */}
-            <div className="bg-card rounded-2xl border border-border p-8 shadow-lg">
-              <h2 className="font-heading text-2xl font-bold text-foreground mb-6">
-                BMI Calculator
-              </h2>
-
-              {/* Unit Toggle */}
-              <div className="flex gap-2 mb-6">
-                <button
-                  onClick={() => {
-                    setUnit("metric");
-                    setBmi(null);
-                  }}
-                  className={`flex-1 py-2 px-4 rounded-lg font-medium transition ${
-                    unit === "metric"
-                      ? "bg-primary text-white"
-                      : "bg-muted text-muted-foreground hover:bg-muted/80"
-                  }`}
-                >
-                  Metric
-                </button>
-                <button
-                  onClick={() => {
-                    setUnit("imperial");
-                    setBmi(null);
-                  }}
-                  className={`flex-1 py-2 px-4 rounded-lg font-medium transition ${
-                    unit === "imperial"
-                      ? "bg-primary text-white"
-                      : "bg-muted text-muted-foreground hover:bg-muted/80"
-                  }`}
-                >
-                  Imperial
-                </button>
-              </div>
-
-              {/* Inputs */}
-              <div className="space-y-4 mb-6">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="age" className="text-foreground">
-                      Age
-                    </Label>
-                    <Input
-                      id="age"
-                      type="number"
-                      placeholder="25"
-                      value={age}
-                      onChange={(e) => {
-                        setAge(e.target.value);
-                        setBmi(null);
-                      }}
-                      className="mt-2"
-                    />
-                  </div>
-                  <div>
-                    <Label className="text-foreground">Gender</Label>
-                    <div className="flex gap-2 mt-2">
-                      <button
-                        onClick={() => {
-                          setGender("male");
-                          setBmi(null);
-                        }}
-                        className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition ${
-                          gender === "male"
-                            ? "bg-primary/20 text-primary border border-primary"
-                            : "bg-muted text-muted-foreground border border-transparent"
-                        }`}
-                      >
-                        Male
-                      </button>
-                      <button
-                        onClick={() => {
-                          setGender("female");
-                          setBmi(null);
-                        }}
-                        className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition ${
-                          gender === "female"
-                            ? "bg-primary/20 text-primary border border-primary"
-                            : "bg-muted text-muted-foreground border border-transparent"
-                        }`}
-                      >
-                        Female
-                      </button>
+                    <div className="w-24 h-24 bg-primary/5 rounded-full flex items-center justify-center mb-6">
+                      <ArrowRight className="text-primary animate-bounce-x" size={40} />
                     </div>
-                  </div>
-                </div>
-
-                <div>
-                  <Label htmlFor="height" className="text-foreground">
-                    Height {unit === "metric" ? "(cm)" : "(inches)"}
-                  </Label>
-                  <Input
-                    id="height"
-                    type="number"
-                    placeholder={unit === "metric" ? "170" : "67"}
-                    value={height}
-                    onChange={(e) => {
-                      setHeight(e.target.value);
-                      setBmi(null);
-                    }}
-                    className="mt-2"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="weight" className="text-foreground">
-                    Weight {unit === "metric" ? "(kg)" : "(lbs)"}
-                  </Label>
-                  <Input
-                    id="weight"
-                    type="number"
-                    placeholder={unit === "metric" ? "70" : "150"}
-                    value={weight}
-                    onChange={(e) => {
-                      setWeight(e.target.value);
-                      setBmi(null);
-                    }}
-                    className="mt-2"
-                  />
-                </div>
-
-                <div className="pt-2">
-                  <Label htmlFor="activity" className="text-foreground">
-                    Activity Level
-                  </Label>
-                  <select
-                    id="activity"
-                    value={activityLevel}
-                    onChange={(e) => {
-                      setActivityLevel(e.target.value);
-                      setBmi(null);
-                    }}
-                    className="w-full mt-2 px-3 py-2 border border-border rounded-lg bg-background text-sm focus:ring-2 focus:ring-primary outline-none"
-                  >
-                    <option value="1.2">Sedentary (office job, little exercise)</option>
-                    <option value="1.375">Lightly Active (1-3 days/week exercise)</option>
-                    <option value="1.55">Moderately Active (3-5 days/week exercise)</option>
-                    <option value="1.725">Very Active (6-7 days/week exercise)</option>
-                    <option value="1.9">Extra Active (physical job, 2x training)</option>
-                  </select>
-                </div>
+                    <h3 className="text-xl font-bold text-foreground mb-2">Ready to Start?</h3>
+                    <p className="text-muted-foreground text-sm italic">
+                      Fill in the form to see your BMI, metabolism rate, and daily calorie requirements.
+                    </p>
+                  </motion.div>
+                )}
               </div>
-
-              {/* Calculate Button */}
-              <Button onClick={calculateBMI} className="w-full mb-6" size="lg">
-                Calculate BMI
-              </Button>
-
-              {/* Result */}
-              {bmi && (
-                <div className="bg-muted/50 rounded-xl p-6 space-y-4">
-                  <div className="text-center">
-                    <p className="text-muted-foreground text-sm mb-2">
-                      Your BMI
-                    </p>
-                    <p className={`text-5xl font-bold ${getBMIColor()}`}>
-                      {bmi}
-                    </p>
-                  </div>
-                  <div className="text-center">
-                    <span
-                      className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold ${getCategoryColor()}`}
-                    >
-                      {category}
-                    </span>
-                  </div>
-
-                  {/* Detailed Results Toggle */}
-                  <div className="pt-4 border-t border-border">
-                    <button
-                      onClick={() => setShowDetailed(!showDetailed)}
-                      className="w-full flex items-center justify-between text-sm font-medium text-foreground hover:text-primary transition"
-                    >
-                      <span>Detailed Analysis</span>
-                      <Info size={16} />
-                    </button>
-
-                    {showDetailed && (
-                      <div className="mt-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-300">
-                        {bmr && (
-                          <div className="flex justify-between items-center p-3 bg-background rounded-lg border border-border">
-                            <span className="text-sm text-muted-foreground">BMR (Metabolism)</span>
-                            <span className="font-bold text-foreground">{bmr} kcal/day</span>
-                          </div>
-                        )}
-                        {idealWeight && (
-                          <div className="flex justify-between items-center p-3 bg-background rounded-lg border border-border">
-                            <span className="text-sm text-muted-foreground">Ideal Weight Range</span>
-                            <span className="font-bold text-foreground">
-                              {idealWeight.min} - {idealWeight.max} {unit === "metric" ? "kg" : "lbs"}
-                            </span>
-                          </div>
-                        )}
-                        {calories && (
-                          <div className="flex justify-between items-center p-3 bg-background rounded-lg border border-border">
-                            <span className="text-sm text-muted-foreground">Daily Calorie Needs</span>
-                            <span className="font-bold text-foreground">{calories} kcal/day</span>
-                          </div>
-                        )}
-                        <div className="p-3 bg-primary/5 rounded-lg border border-primary/10 text-xs text-muted-foreground">
-                          <p>
-                            BMR is calories burned at rest. Daily Needs includes your activity level. Ideal weight is based on a healthy BMI range.
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="pt-4 border-t border-border">
-                    <p className="text-xs text-muted-foreground text-center">
-                      BMI is a general indicator. For personalized health
-                      advice,
-                      <br />
-                      consult a healthcare professional.
-                    </p>
-                  </div>
-                  <button
-                    onClick={saveToHistory}
-                    className="w-full mt-4 py-2 px-4 bg-primary text-white rounded-lg font-medium hover:bg-primary/90 transition"
-                  >
-                    Save to History
-                  </button>
-                </div>
-              )}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Quick Tips */}
-      <section className="py-24 bg-card border-t border-border">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-heading font-bold text-foreground mb-4">
-              Understanding BMI Categories
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Learn what your BMI number means
-            </p>
-          </div>
+      <BMIInfoCards />
+      <Features />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                range: "< 18.5",
-                category: "Underweight",
-                color: "bg-blue-100",
-                icon: "🔵",
-              },
-              {
-                range: "18.5 - 24.9",
-                category: "Normal Weight",
-                color: "bg-green-100",
-                icon: "🟢",
-              },
-              {
-                range: "25 - 29.9",
-                category: "Overweight",
-                color: "bg-yellow-100",
-                icon: "🟡",
-              },
-              {
-                range: "≥ 30",
-                category: "Obese",
-                color: "bg-red-100",
-                icon: "🔴",
-              },
-            ].map((item, idx) => (
-              <div
-                key={idx}
-                className={`${item.color} rounded-xl p-6 text-center border-2 border-border`}
-              >
-                <p className="text-3xl mb-3">{item.icon}</p>
-                <p className="text-2xl font-bold text-foreground mb-2">
-                  {item.range}
-                </p>
-                <p className="font-heading font-semibold text-foreground">
-                  {item.category}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-heading font-bold text-foreground mb-4">
-              Why Track Your BMI
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Monitor your health journey and stay motivated
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Activity,
-                title: "Track Progress",
-                description:
-                  "Monitor your BMI changes over time and see your health improvements.",
-              },
-              {
-                icon: Heart,
-                title: "Health Awareness",
-                description:
-                  "Understand your health status and take proactive steps.",
-              },
-              {
-                icon: TrendingUp,
-                title: "Goal Setting",
-                description:
-                  "Set realistic health goals and track your journey towards them.",
-              },
-              {
-                icon: Zap,
-                title: "Instant Calculation",
-                description:
-                  "Get your BMI instantly with support for metric and imperial units.",
-              },
-              {
-                icon: BarChart3,
-                title: "Visual Charts",
-                description:
-                  "See BMI categories and ranges in easy-to-understand visual formats.",
-              },
-              {
-                icon: Heart,
-                title: "Personalized Tips",
-                description:
-                  "Get health tips tailored to your BMI category and goals.",
-              },
-            ].map((feature, idx) => {
-              const Icon = feature.icon;
-              return (
-                <div
-                  key={idx}
-                  className="bg-card rounded-xl p-8 border border-border hover:border-primary/50 transition"
-                >
-                  <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                    <Icon className="text-primary" size={24} />
-                  </div>
-                  <h3 className="text-xl font-heading font-semibold text-foreground mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-muted-foreground">{feature.description}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-primary/10 to-secondary/10 border-t border-border">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl font-heading font-bold text-foreground mb-6">
-              Start Your Health Journey Today
-            </h2>
-            <p className="text-xl text-muted-foreground mb-8">
-              Calculate your BMI now and take the first step towards better
-              health.
-            </p>
+      {/* Final CTA */}
+      <section className="py-24 bg-gradient-to-t from-primary/10 to-transparent border-t border-border">
+        <div className="container mx-auto px-4 text-center space-y-8">
+          <h2 className="text-4xl font-black text-foreground tracking-tight uppercase">
+            Ready to track your progress?
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto italic">
+            Join thousands of users who have taken the first step towards a healthier lifestyle.
+          </p>
+          <div className="flex justify-center">
             <Link to="/history">
-              <Button size="lg" className="px-8">
-                View Your History <ArrowRight className="ml-2" size={18} />
+              <Button size="lg" className="h-16 px-12 rounded-2xl font-black text-xl shadow-xl shadow-primary/20 group">
+                VIEW MY HISTORY
+                <ArrowRight className="ml-3 group-hover:translate-x-2 transition-transform" size={24} />
               </Button>
             </Link>
           </div>

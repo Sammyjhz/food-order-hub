@@ -4,272 +4,220 @@ import {
   TrendingUp,
   AlertCircle,
   CheckCircle,
+  ArrowLeft,
+  BookOpen,
 } from "lucide-react";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
 
 export default function BMIChart() {
+  const categories = [
+    {
+      range: "Below 18.5",
+      category: "Underweight",
+      color: "border-blue-500 bg-blue-50/50",
+      textColor: "text-blue-900",
+      icon: TrendingDown,
+      description: "Body weight is too low for height",
+      implications: [
+        "Risk of nutritional deficiencies",
+        "Weakened immune system function",
+        "Potential for low bone density",
+        "Lower muscle mass levels",
+      ],
+      action: "Focus on nutrient-dense calorie surplus"
+    },
+    {
+      range: "18.5 - 24.9",
+      category: "Normal Weight",
+      color: "border-green-500 bg-green-50/50",
+      textColor: "text-green-900",
+      icon: CheckCircle,
+      description: "Optimal body weight for most adults",
+      implications: [
+        "Reduced risk of chronic diseases",
+        "Efficient cardiovascular function",
+        "Optimal energy and vitality levels",
+        "Balanced metabolic health",
+      ],
+      action: "Maintain with balanced diet and activity"
+    },
+    {
+      range: "25 - 29.9",
+      category: "Overweight",
+      color: "border-yellow-500 bg-yellow-50/50",
+      textColor: "text-yellow-900",
+      icon: AlertCircle,
+      description: "Weight is above standard healthy range",
+      implications: [
+        "Increased load on weight-bearing joints",
+        "Higher risk of insulin resistance",
+        "Increased cardiovascular strain",
+        "Lower overall respiratory efficiency",
+      ],
+      action: "Focus on moderate calorie deficit"
+    },
+    {
+      range: "30+",
+      category: "Obese",
+      color: "border-red-500 bg-red-50/50",
+      textColor: "text-red-900",
+      icon: TrendingUp,
+      description: "Well above standard weight range",
+      implications: [
+        "Significantly higher metabolic risks",
+        "Increased risk of Type 2 Diabetes",
+        "Sleep apnea and breathing issues",
+        "Chronic inflammation potential",
+      ],
+      action: "Seek medical and nutritional guidance"
+    },
+  ];
+
   return (
-    <div className="bg-background">
+    <div className="bg-background min-h-screen">
       {/* Page Header */}
-      <section className="border-b border-border">
-        <div className="container mx-auto px-4 py-12">
-          <h1 className="text-4xl font-heading font-bold text-foreground mb-2">
-            BMI Chart & Categories
+      <section className="bg-card border-b border-border py-16 md:py-24">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <Link to="/" className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:opacity-80 transition mb-6">
+            <ArrowLeft size={16} />
+            BACK TO CALCULATOR
+          </Link>
+          <h1 className="text-5xl md:text-7xl font-black text-foreground tracking-tight uppercase leading-[0.9] mb-6 flex items-center gap-6">
+            <BookOpen className="text-primary hidden sm:block" size={48} />
+            The BMI <br />
+            <span className="bg-gradient-to-r from-primary to-emerald-600 bg-clip-text text-transparent">Health Metric</span>
           </h1>
-          <p className="text-muted-foreground">
-            Understand BMI ranges and what they mean for your health
+          <p className="text-xl text-muted-foreground italic max-w-2xl leading-relaxed">
+            BMI is a screening tool used to estimate weight-to-height ratio, 
+            helping identify potential weight-related health issues.
           </p>
         </div>
       </section>
 
-      {/* BMI Categories Overview */}
-      <section className="py-12 border-b border-border">
+      {/* Grid Overview */}
+      <section className="py-20 bg-background">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                range: "Below 18.5",
-                category: "Underweight",
-                color: "border-blue-500 bg-blue-50",
-                textColor: "text-blue-900",
-                icon: TrendingDown,
-                description: "May need to gain weight",
-              },
-              {
-                range: "18.5 - 24.9",
-                category: "Normal Weight",
-                color: "border-green-500 bg-green-50",
-                textColor: "text-green-900",
-                icon: CheckCircle,
-                description: "Healthy weight range",
-              },
-              {
-                range: "25 - 29.9",
-                category: "Overweight",
-                color: "border-yellow-500 bg-yellow-50",
-                textColor: "text-yellow-900",
-                icon: AlertCircle,
-                description: "May need to lose weight",
-              },
-              {
-                range: "30+",
-                category: "Obese",
-                color: "border-red-500 bg-red-50",
-                textColor: "text-red-900",
-                icon: TrendingUp,
-                description: "Higher health risks",
-              },
-            ].map((item, idx) => {
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+            {categories.map((item, idx) => {
               const Icon = item.icon;
               return (
-                <div
+                <motion.div
                   key={idx}
-                  className={`border-l-4 ${item.color} rounded-lg p-6`}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                  className={`border-t-8 ${item.color} rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 group`}
                 >
-                  <div className="flex items-start gap-3 mb-3">
-                    <Icon className={item.textColor} size={24} />
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center bg-white shadow-sm border border-border group-hover:scale-110 transition-transform`}>
+                      <Icon className={item.textColor} size={28} />
+                    </div>
                     <div>
-                      <p
-                        className={`font-heading text-2xl font-bold ${item.textColor}`}
-                      >
+                      <p className={`text-2xl font-black ${item.textColor} tracking-tighter`}>
                         {item.range}
                       </p>
-                      <p
-                        className={`font-heading font-semibold ${item.textColor}`}
-                      >
+                      <p className={`font-black text-xs uppercase tracking-widest ${item.textColor} opacity-80`}>
                         {item.category}
                       </p>
                     </div>
                   </div>
-                  <p className={`text-sm ${item.textColor}`}>
+                  <p className="text-sm font-bold text-foreground/80 italic mb-6">
                     {item.description}
                   </p>
-                </div>
+                  
+                  <div className="space-y-4 pt-4 border-t border-border/50">
+                    <p className={`text-[10px] font-black uppercase tracking-widest ${item.textColor}`}>Risk Factors:</p>
+                    <ul className="space-y-2">
+                      {item.implications.map((risk, ridx) => (
+                        <li key={ridx} className="flex items-start gap-2">
+                          <div className={`mt-1.5 w-1.5 h-1.5 rounded-full ${item.textColor} opacity-40 shrink-0`}></div>
+                          <span className="text-[11px] font-bold text-foreground/70 leading-tight">{risk}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className={`mt-8 p-4 rounded-xl bg-white border border-border/50 text-center shadow-inner`}>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1">Recommended Strategy:</p>
+                    <p className="text-xs font-black text-foreground">{item.action}</p>
+                  </div>
+                </motion.div>
               );
             })}
           </div>
         </div>
       </section>
 
-      {/* Detailed Information */}
-      <section className="py-12">
-        <div className="container mx-auto px-4">
-          <div className="space-y-8">
-            {/* Underweight */}
-            <div className="bg-card rounded-xl border border-border p-8">
-              <h2 className="font-heading text-2xl font-bold text-blue-700 mb-4">
-                Underweight (BMI &lt; 18.5)
+      {/* Advanced Logic */}
+      <section className="py-20 bg-card border-y border-border">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <div className="bg-primary/5 rounded-[2rem] border border-primary/20 p-10 md:p-16 flex flex-col md:flex-row gap-12 items-center">
+            <div className="flex-1 space-y-6">
+              <h2 className="text-3xl md:text-4xl font-black text-foreground tracking-tight uppercase">
+                Mathematical <br /> Precision
               </h2>
-              <p className="text-muted-foreground mb-4">
-                A BMI below 18.5 is considered underweight. This may indicate
-                that you're not getting enough nutrients or have certain health
-                conditions.
+              <p className="text-muted-foreground italic leading-relaxed">
+                BMI is calculated by dividing an individual's mass in kilograms 
+                by the square of their height in meters.
               </p>
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-2 text-sm">
-                <p className="font-semibold text-blue-900">
-                  Health Considerations:
-                </p>
-                <ul className="list-disc list-inside text-blue-800 space-y-1">
-                  <li>May increase risk of nutritional deficiencies</li>
-                  <li>Could be associated with certain health conditions</li>
-                  <li>May affect bone density and immune function</li>
-                  <li>Consult a doctor if persistently underweight</li>
-                </ul>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="bg-background rounded-2xl p-6 border border-border shadow-sm">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-3">Metric Protocol</p>
+                  <p className="font-mono text-lg font-bold">BMI = kg / m²</p>
+                </div>
+                <div className="bg-background rounded-2xl p-6 border border-border shadow-sm">
+                  <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-3">Imperial Protocol</p>
+                  <p className="font-mono text-lg font-bold">BMI = (lb / in²) × 703</p>
+                </div>
               </div>
             </div>
-
-            {/* Normal Weight */}
-            <div className="bg-card rounded-xl border border-border p-8">
-              <h2 className="font-heading text-2xl font-bold text-green-700 mb-4">
-                Normal Weight (BMI 18.5 - 24.9)
-              </h2>
-              <p className="text-muted-foreground mb-4">
-                A BMI in this range is generally considered healthy and
-                associated with lower health risks for most adults.
-              </p>
-              <div className="bg-green-50 border border-green-200 rounded-lg p-4 space-y-2 text-sm">
-                <p className="font-semibold text-green-900">Health Benefits:</p>
-                <ul className="list-disc list-inside text-green-800 space-y-1">
-                  <li>Lower risk of chronic diseases</li>
-                  <li>Better overall health and wellness</li>
-                  <li>Improved physical and mental well-being</li>
-                  <li>Maintain this range with healthy habits</li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Overweight */}
-            <div className="bg-card rounded-xl border border-border p-8">
-              <h2 className="font-heading text-2xl font-bold text-yellow-700 mb-4">
-                Overweight (BMI 25 - 29.9)
-              </h2>
-              <p className="text-muted-foreground mb-4">
-                A BMI in this range suggests you may be carrying excess weight
-                relative to your height, which can increase certain health
-                risks.
-              </p>
-              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 space-y-2 text-sm">
-                <p className="font-semibold text-yellow-900">
-                  Health Considerations:
-                </p>
-                <ul className="list-disc list-inside text-yellow-800 space-y-1">
-                  <li>
-                    Increased risk of heart disease and high blood pressure
-                  </li>
-                  <li>Higher likelihood of type 2 diabetes</li>
-                  <li>May affect joint and back health</li>
-                  <li>
-                    Consider lifestyle changes and consult a healthcare provider
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Obese */}
-            <div className="bg-card rounded-xl border border-border p-8">
-              <h2 className="font-heading text-2xl font-bold text-red-700 mb-4">
-                Obese (BMI ≥ 30)
-              </h2>
-              <p className="text-muted-foreground mb-4">
-                A BMI of 30 or higher is classified as obese and is associated
-                with increased health risks and potential chronic conditions.
-              </p>
-              <div className="bg-red-50 border border-red-200 rounded-lg p-4 space-y-2 text-sm">
-                <p className="font-semibold text-red-900">Health Risks:</p>
-                <ul className="list-disc list-inside text-red-800 space-y-1">
-                  <li>Significantly higher risk of heart disease and stroke</li>
-                  <li>High likelihood of type 2 diabetes</li>
-                  <li>Increased risk of certain cancers</li>
-                  <li>Sleep apnea and respiratory issues</li>
-                  <li>Strongly recommend consulting a healthcare provider</li>
-                </ul>
-              </div>
+            <div className="w-full md:w-64 aspect-square bg-gradient-to-br from-primary to-secondary rounded-[3rem] shadow-2xl flex items-center justify-center text-7xl animate-pulse">
+              📐
             </div>
           </div>
         </div>
       </section>
 
-      {/* Important Notes */}
-      <section className="py-12 bg-card border-t border-border">
-        <div className="container mx-auto px-4">
-          <div className="bg-blue-50 border border-blue-200 rounded-xl p-8">
-            <div className="flex gap-4">
-              <Info className="text-blue-600 flex-shrink-0 mt-1" size={24} />
-              <div>
-                <h3 className="font-heading text-xl font-bold text-blue-900 mb-3">
-                  Important Notes About BMI
+      {/* Constraints */}
+      <section className="py-20">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="bg-muted/30 border border-border rounded-3xl p-10 relative overflow-hidden">
+            <div className="absolute top-0 left-0 w-2 h-full bg-primary"></div>
+            <div className="flex gap-8 items-start">
+              <div className="hidden sm:flex w-16 h-16 bg-white rounded-full items-center justify-center shadow-sm shrink-0">
+                <Info className="text-primary" size={32} />
+              </div>
+              <div className="space-y-6">
+                <h3 className="text-2xl font-black text-foreground tracking-tight uppercase">
+                  Logical Limitations
                 </h3>
-                <ul className="space-y-2 text-sm text-blue-800">
-                  <li>
-                    <span className="font-semibold">General Tool:</span> BMI is
-                    a general screening tool and doesn't diagnose health
-                    conditions.
-                  </li>
-                  <li>
-                    <span className="font-semibold">Not for Everyone:</span> BMI
-                    may not be accurate for athletes, elderly, or children.
-                    Muscle weighs more than fat.
-                  </li>
-                  <li>
-                    <span className="font-semibold">Medical Advice:</span> This
-                    calculator is not a substitute for professional medical
-                    advice. Always consult healthcare professionals.
-                  </li>
-                  <li>
-                    <span className="font-semibold">Other Factors:</span> Waist
-                    circumference, fitness level, and family history also affect
-                    health risks.
-                  </li>
-                  <li>
-                    <span className="font-semibold">Individual Variation:</span>{" "}
-                    BMI categories are general guidelines. Individual health
-                    depends on many factors.
-                  </li>
-                </ul>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6">
+                  {[
+                    { title: "Athlete Paradox", desc: "Muscle is denser than fat. Elite athletes often classify as overweight on the BMI scale." },
+                    { title: "Age Dynamics", desc: "Body composition naturally shifts as we age, making standard scales less accurate for seniors." },
+                    { title: "Distribution", desc: "BMI doesn't account for where fat is stored (visceral vs subcutaneous), which matters for health." },
+                    { title: "Bone Structure", desc: "Naturally large or small skeletal frames can skew results without indicating health issues." },
+                  ].map((limit, lidx) => (
+                    <div key={lidx} className="space-y-1">
+                      <p className="text-xs font-black uppercase tracking-widest text-foreground">{limit.title}</p>
+                      <p className="text-sm text-muted-foreground italic leading-relaxed">{limit.desc}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* BMI Calculation Formula */}
-      <section className="py-12 bg-background">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-heading font-bold text-foreground mb-8 text-center">
-            How is BMI Calculated?
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-            {/* Metric */}
-            <div className="bg-card rounded-xl border border-border p-6">
-              <h3 className="font-heading font-bold text-foreground mb-4">
-                Metric Formula
-              </h3>
-              <div className="bg-muted/50 rounded-lg p-4 mb-4">
-                <p className="font-mono text-sm text-foreground">
-                  BMI = weight (kg) / height (m)²
-                </p>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Divide your weight in kilograms by your height in meters,
-                squared.
-              </p>
-            </div>
-
-            {/* Imperial */}
-            <div className="bg-card rounded-xl border border-border p-6">
-              <h3 className="font-heading font-bold text-foreground mb-4">
-                Imperial Formula
-              </h3>
-              <div className="bg-muted/50 rounded-lg p-4 mb-4">
-                <p className="font-mono text-sm text-foreground">
-                  BMI = (weight (lbs) / height (in)²) × 703
-                </p>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Divide weight in pounds by height in inches squared, then
-                multiply by 703.
-              </p>
-            </div>
+          
+          <div className="mt-16 text-center">
+             <Link to="/">
+                <Button size="lg" className="h-16 px-12 rounded-2xl font-black text-xl shadow-xl shadow-primary/20">
+                  RETURN TO CALCULATOR
+                </Button>
+             </Link>
           </div>
         </div>
       </section>
