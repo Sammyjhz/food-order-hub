@@ -2,10 +2,23 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { User, Target, Heart, LogOut, Bell, Lock } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Account() {
   const [activeTab, setActiveTab] = useState("profile");
+  const [lastBmi, setLastBmi] = useState<number | null>(null);
+  const [lastCategory, setLastCategory] = useState<string>("");
+
+  useEffect(() => {
+    const stored = localStorage.getItem("bmiHistory");
+    if (stored) {
+      const history = JSON.parse(stored);
+      if (history.length > 0) {
+        setLastBmi(history[0].bmi);
+        setLastCategory(history[0].category);
+      }
+    }
+  }, []);
 
   return (
     <div className="bg-background">
@@ -95,11 +108,13 @@ export default function Account() {
 
                 <div className="mt-6 p-4 bg-primary/10 rounded-lg border border-primary/20">
                   <p className="text-sm text-muted-foreground mb-2">
-                    Current BMI
+                    Latest BMI
                   </p>
-                  <p className="text-2xl font-bold text-primary">24.5</p>
+                  <p className="text-2xl font-bold text-primary">
+                    {lastBmi ? lastBmi : "--"}
+                  </p>
                   <p className="text-xs text-muted-foreground mt-1">
-                    Normal Weight
+                    {lastCategory ? lastCategory : "No data yet"}
                   </p>
                 </div>
 

@@ -16,13 +16,21 @@ import {
 export default function Index() {
   const [height, setHeight] = useState<string>("");
   const [weight, setWeight] = useState<string>("");
+  const [age, setAge] = useState<string>("");
+  const [gender, setGender] = useState<"male" | "female">("male");
   const [unit, setUnit] = useState<"metric" | "imperial">("metric");
   const [bmi, setBmi] = useState<number | null>(null);
   const [category, setCategory] = useState<string>("");
+  const [bmr, setBmr] = useState<number | null>(null);
+  const [idealWeight, setIdealWeight] = useState<{ min: number; max: number } | null>(null);
+  const [activityLevel, setActivityLevel] = useState<string>("1.2");
+  const [calories, setCalories] = useState<number | null>(null);
+  const [showDetailed, setShowDetailed] = useState(false);
 
   const calculateBMI = () => {
     const h = parseFloat(height);
     const w = parseFloat(weight);
+    const a = parseFloat(age);
 
     if (!h || !w || h <= 0 || w <= 0) {
       alert("Please enter valid height and weight values");
@@ -30,17 +38,22 @@ export default function Index() {
     }
 
     let calculatedBMI: number;
+    let heightInCm: number;
+    let weightInKg: number;
 
     if (unit === "metric") {
-      // BMI = weight (kg) / height (m)²
+      heightInCm = h;
+      weightInKg = w;
       const heightInMeters = h / 100;
       calculatedBMI = w / (heightInMeters * heightInMeters);
     } else {
-      // BMI = (weight (lbs) / height (inches)²) × 703
+      heightInCm = h * 2.54;
+      weightInKg = w / 2.20462;
       calculatedBMI = (w / (h * h)) * 703;
     }
 
-    setBmi(Math.round(calculatedBMI * 10) / 10);
+    const finalBMI = Math.round(calculatedBMI * 10) / 10;
+    setBmi(finalBMI);
 
     // Determine category
     if (calculatedBMI < 18.5) {
@@ -52,6 +65,32 @@ export default function Index() {
     } else {
       setCategory("Obese");
     }
+
+    // Calculate BMR (Mifflin-St Jeor Equation)
+    if (a > 0) {
+      let calculatedBmr: number;
+      if (gender === "male") {
+        calculatedBmr = 10 * weightInKg + 6.25 * heightInCm - 5 * a + 5;
+      } else {
+        calculatedBmr = 10 * weightInKg + 6.25 * heightInCm - 5 * a - 161;
+      }
+      const finalBmr = Math.round(calculatedBmr);
+      setBmr(finalBmr);
+      setCalories(Math.round(finalBmr * parseFloat(activityLevel)));
+    }
+
+    // Calculate Ideal Weight Range (Hamwi Method approx for range)
+    // Healthy BMI range is 18.5 to 24.9
+    let minW: number, maxW: number;
+    if (unit === "metric") {
+      const hM = h / 100;
+      minW = 18.5 * (hM * hM);
+      maxW = 24.9 * (hM * hM);
+    } else {
+      minW = (18.5 * (h * h)) / 703;
+      maxW = (24.9 * (h * h)) / 703;
+    }
+    setIdealWeight({ min: Math.round(minW * 10) / 10, max: Math.round(maxW * 10) / 10 });
   };
 
   const getBMIColor = () => {
@@ -87,6 +126,12 @@ export default function Index() {
       bmi: bmi,
       category: category,
       unit: unit,
+      age: age ? parseFloat(age) : null,
+      gender: gender,
+      bmr: bmr,
+      calories: calories,
+      activityLevel: activityLevel,
+      idealWeight: idealWeight,
     };
 
     const stored = localStorage.getItem("bmiHistory");
@@ -174,6 +219,56 @@ export default function Index() {
 
               {/* Inputs */}
               <div className="space-y-4 mb-6">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="age" className="text-foreground">
+                      Age
+                    </Label>
+                    <Input
+                      id="age"
+                      type="number"
+                      placeholder="25"
+                      value={age}
+                      onChange={(e) => {
+                        setAge(e.target.value);
+                        setBmi(null);
+                      }}
+                      className="mt-2"
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-foreground">Gender</Label>
+                    <div className="flex gap-2 mt-2">
+                      <button
+                        onClick={() => {
+                          setGender("male");
+                          setBmi(null);
+                        }}
+                        className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition ${
+                          gender === "male"
+                            ? "bg-primary/20 text-primary border border-primary"
+                            : "bg-muted text-muted-foreground border border-transparent"
+                        }`}
+                      >
+                        Male
+                      </button>
+                      <button
+                        onClick={() => {
+                          setGender("female");
+                          setBmi(null);
+                        }}
+                        className={`flex-1 py-2 px-3 rounded-lg text-sm font-medium transition ${
+                          gender === "female"
+                            ? "bg-primary/20 text-primary border border-primary"
+                            : "bg-muted text-muted-foreground border border-transparent"
+                        }`}
+                      >
+                        Female
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
                 <div>
                   <Label htmlFor="height" className="text-foreground">
                     Height {unit === "metric" ? "(cm)" : "(inches)"}
@@ -207,6 +302,27 @@ export default function Index() {
                     className="mt-2"
                   />
                 </div>
+
+                <div className="pt-2">
+                  <Label htmlFor="activity" className="text-foreground">
+                    Activity Level
+                  </Label>
+                  <select
+                    id="activity"
+                    value={activityLevel}
+                    onChange={(e) => {
+                      setActivityLevel(e.target.value);
+                      setBmi(null);
+                    }}
+                    className="w-full mt-2 px-3 py-2 border border-border rounded-lg bg-background text-sm focus:ring-2 focus:ring-primary outline-none"
+                  >
+                    <option value="1.2">Sedentary (office job, little exercise)</option>
+                    <option value="1.375">Lightly Active (1-3 days/week exercise)</option>
+                    <option value="1.55">Moderately Active (3-5 days/week exercise)</option>
+                    <option value="1.725">Very Active (6-7 days/week exercise)</option>
+                    <option value="1.9">Extra Active (physical job, 2x training)</option>
+                  </select>
+                </div>
               </div>
 
               {/* Calculate Button */}
@@ -232,6 +348,48 @@ export default function Index() {
                       {category}
                     </span>
                   </div>
+
+                  {/* Detailed Results Toggle */}
+                  <div className="pt-4 border-t border-border">
+                    <button
+                      onClick={() => setShowDetailed(!showDetailed)}
+                      className="w-full flex items-center justify-between text-sm font-medium text-foreground hover:text-primary transition"
+                    >
+                      <span>Detailed Analysis</span>
+                      <Info size={16} />
+                    </button>
+
+                    {showDetailed && (
+                      <div className="mt-4 space-y-3 animate-in fade-in slide-in-from-top-2 duration-300">
+                        {bmr && (
+                          <div className="flex justify-between items-center p-3 bg-background rounded-lg border border-border">
+                            <span className="text-sm text-muted-foreground">BMR (Metabolism)</span>
+                            <span className="font-bold text-foreground">{bmr} kcal/day</span>
+                          </div>
+                        )}
+                        {idealWeight && (
+                          <div className="flex justify-between items-center p-3 bg-background rounded-lg border border-border">
+                            <span className="text-sm text-muted-foreground">Ideal Weight Range</span>
+                            <span className="font-bold text-foreground">
+                              {idealWeight.min} - {idealWeight.max} {unit === "metric" ? "kg" : "lbs"}
+                            </span>
+                          </div>
+                        )}
+                        {calories && (
+                          <div className="flex justify-between items-center p-3 bg-background rounded-lg border border-border">
+                            <span className="text-sm text-muted-foreground">Daily Calorie Needs</span>
+                            <span className="font-bold text-foreground">{calories} kcal/day</span>
+                          </div>
+                        )}
+                        <div className="p-3 bg-primary/5 rounded-lg border border-primary/10 text-xs text-muted-foreground">
+                          <p>
+                            BMR is calories burned at rest. Daily Needs includes your activity level. Ideal weight is based on a healthy BMI range.
+                          </p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
                   <div className="pt-4 border-t border-border">
                     <p className="text-xs text-muted-foreground text-center">
                       BMI is a general indicator. For personalized health

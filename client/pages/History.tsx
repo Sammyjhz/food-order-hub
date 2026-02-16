@@ -11,6 +11,12 @@ interface BMIRecord {
   bmi: number;
   category: string;
   unit: "metric" | "imperial";
+  age?: number | null;
+  gender?: string;
+  bmr?: number | null;
+  calories?: number | null;
+  activityLevel?: string;
+  idealWeight?: { min: number; max: number } | null;
 }
 
 export default function History() {
@@ -170,6 +176,31 @@ export default function History() {
                             {record.category}
                           </p>
                         </div>
+                        {record.bmr && (
+                          <div>
+                            <p className="text-xs opacity-75">BMR</p>
+                            <p className="font-heading font-bold">
+                              {record.bmr} kcal
+                            </p>
+                          </div>
+                        )}
+                        {record.calories && (
+                          <div>
+                            <p className="text-xs opacity-75">Daily Needs</p>
+                            <p className="font-heading font-bold">
+                              {record.calories} kcal
+                            </p>
+                          </div>
+                        )}
+                        {record.idealWeight && (
+                          <div className="md:col-span-2">
+                            <p className="text-xs opacity-75">Ideal Weight</p>
+                            <p className="font-heading font-bold text-xs sm:text-base">
+                              {record.idealWeight.min} - {record.idealWeight.max}{" "}
+                              {record.unit === "metric" ? "kg" : "lbs"}
+                            </p>
+                          </div>
+                        )}
                       </div>
                     </div>
                     <button
